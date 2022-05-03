@@ -5,12 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HardwareStoreApp.Repositories;
 using HardwareStoreApp.Services;
+using HardwareStoreApp.Stores;
 
 namespace HardwareStoreApp
 {
 	internal static class Program
 	{
-		private static IHost _host;
+		public static IHost HostInstance { get; set; }
 
 		[STAThread]
 		static void Main()
@@ -19,16 +20,13 @@ namespace HardwareStoreApp
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			_host = CreateHostBuilder().Build();
-			_host.Start();
+			HostInstance = CreateHostBuilder().Build();
+			HostInstance.Start();
 
-			var contextFactory = _host.Services.GetRequiredService<HardwareStoreAppDbContextFactory>();
-			using (var context = contextFactory.CreateDbContext())
-			{
-				context.Database.Migrate();
-			}
-
-			Application.Run(_host.Services.GetRequiredService<MainForm>());
+			var contextFactory = HostInstance.Services.GetRequiredService<HardwareStoreAppDbContextFactory>();
+			using var context = contextFactory.CreateDbContext();
+			context.Database.Migrate();
+			Application.Run(HostInstance.Services.GetRequiredService<MainForm>());
 		}
 
 		public static IHostBuilder CreateHostBuilder(string[] args = null)
@@ -40,9 +38,11 @@ namespace HardwareStoreApp
 					services.AddDbContext<HardwareStoreAppDbContext>();
 					services.AddSingleton(new HardwareStoreAppDbContextFactory());
 					services.AddTransient<MainForm>();
+					services.AddTransient<LoginForm>();
 					services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
 					services.AddSingleton<IUserRepository, UserRepository>();
 					services.AddSingleton<IAuthenticationService, AuthenticationService>();
+					services.AddSingleton<IUserStore, UserStore>();
 				});
 		}
 	}

@@ -1,6 +1,7 @@
-﻿using HardwareStoreApp.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+
+using HardwareStoreApp.Models;
 
 namespace HardwareStoreApp.Repositories
 {

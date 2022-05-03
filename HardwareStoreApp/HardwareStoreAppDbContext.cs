@@ -26,13 +26,6 @@ namespace HardwareStoreApp
 			modelBuilder.Entity<User>().Property(user => user.Password).IsRequired();
 			modelBuilder.Entity<User>().Property(user => user.Login).HasMaxLength(50);
 			modelBuilder.Entity<User>().Property(user => user.Password).HasMaxLength(20);
-			modelBuilder.Entity<User>().HasData(new User
-			{
-				Id = 1,
-				Login = "SuperAdmin",
-				Password = "123",
-				Role = Role.Admin
-			});
 
 			#endregion
 
@@ -87,7 +80,7 @@ namespace HardwareStoreApp
 				.HasForeignKey<Store>(sale => sale.BalanceId);
 
 			#endregion
-
+			
 			base.OnModelCreating(modelBuilder);
 		}
 	}
