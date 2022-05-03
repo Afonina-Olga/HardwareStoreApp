@@ -31,7 +31,7 @@ namespace HardwareStoreApp
 
 				if (user != null)
 				{
-					_userStore.Add(user.Login, user.Role);
+					_userStore.SignIn(user.Login, user.Role);
 					Close();
 				}
 			}

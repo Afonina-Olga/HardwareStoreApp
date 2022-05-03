@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
+
 using HardwareStoreApp.Models;
 using HardwareStoreApp.Services;
 using HardwareStoreApp.Stores;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareStoreApp
 {
@@ -33,8 +34,9 @@ namespace HardwareStoreApp
 
 		private void OnUserChanged()
 		{
-			adminMenuItem.Visible = true;// _userStore.Role == Role.Admin;
-			reportMenuItem.Visible = true;// _userStore.Login != null;
+			loginMenuItem.Text = _userStore.IsSignedIn ? "Выход" : "Вход";
+			adminMenuItem.Visible = _userStore.Role == Role.Admin;
+			reportMenuItem.Visible = _userStore.Login != null;
 		}
 
 		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -44,8 +46,15 @@ namespace HardwareStoreApp
 
 		private void LoginMenuItem_Click(object sender, EventArgs e)
 		{
-			var form = Program.Services.GetRequiredService<LoginForm>();
-			form.Show();
+			if (_userStore.IsSignedIn)
+			{
+				_userStore.SignOut();
+			}
+			else
+			{
+				var form = Program.Services.GetRequiredService<LoginForm>();
+				form.Show();
+			}
 		}
 
 		private void ManageUsersMenuItem_Click(object sender, EventArgs e)

@@ -5,14 +5,16 @@ namespace HardwareStoreApp.Stores
 {
 	public interface IUserStore
 	{
-		string Login { get; set; }
+		string Login { get;  }
 
-		Role Role { get; set; }
+		Role Role { get;  }
+
+		bool IsSignedIn { get;  }
 
 		event Action UserChanged;
 
-		void Add(string login, Role role);
+		void SignIn(string login, Role role);
 
-		void Reset();
+		void SignOut();
 	}
 }

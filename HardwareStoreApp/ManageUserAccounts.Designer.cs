@@ -45,9 +45,14 @@
 			// 
 			// userGrid
 			// 
+			this.userGrid.AllowUserToAddRows = false;
+			this.userGrid.AllowUserToDeleteRows = false;
+			this.userGrid.AllowUserToResizeColumns = false;
+			this.userGrid.AllowUserToResizeRows = false;
 			this.userGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.userGrid.Location = new System.Drawing.Point(13, 169);
 			this.userGrid.Name = "userGrid";
+			this.userGrid.ReadOnly = true;
 			this.userGrid.RowHeadersWidth = 51;
 			this.userGrid.RowTemplate.Height = 29;
 			this.userGrid.Size = new System.Drawing.Size(446, 208);
@@ -68,6 +73,7 @@
 			// 
 			this.txtPassword.Location = new System.Drawing.Point(80, 94);
 			this.txtPassword.Name = "txtPassword";
+			this.txtPassword.PasswordChar = '*';
 			this.txtPassword.Size = new System.Drawing.Size(380, 27);
 			this.txtPassword.TabIndex = 2;
 			// 

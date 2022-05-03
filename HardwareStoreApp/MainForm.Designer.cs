@@ -134,7 +134,6 @@
 		private System.Windows.Forms.ToolStripMenuItem сводныйПоМагазинамToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem adminMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem manageUsersMenuItem;
-		private System.Windows.Forms.Button btnLoginForm;
 		private System.Windows.Forms.ToolStripMenuItem authorizeMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
