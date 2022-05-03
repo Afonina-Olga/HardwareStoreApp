@@ -13,15 +13,18 @@ namespace HardwareStoreApp
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserStore _userStore;
 		private readonly LoginForm _loginForm;
+		private readonly ManageUserAccounts _accounts;
 
 		public MainForm(
 			IAuthenticationService authenticationService,
 			IUserStore userStore,
-			LoginForm loginForm)
+			LoginForm loginForm,
+			ManageUserAccounts accounts)
 		{
 			_authenticationService = authenticationService;
 			_userStore = userStore;
 			_loginForm = loginForm;
+			_accounts = accounts;
 			InitializeComponent();
 		}
 
@@ -34,8 +37,8 @@ namespace HardwareStoreApp
 
 		private void OnUserChanged()
 		{
-			adminMenuItem.Visible = _userStore.Role == Role.Admin;
-			reportMenuItem.Visible = _userStore.Login != null;
+			adminMenuItem.Visible = true;// _userStore.Role == Role.Admin;
+			reportMenuItem.Visible = true;// _userStore.Login != null;
 		}
 
 		private async void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -52,7 +55,7 @@ namespace HardwareStoreApp
 
 		private void ManageUsersMenuItem_Click(object sender, EventArgs e)
 		{
-
+			_accounts.Show();
 		}
 	}
 }

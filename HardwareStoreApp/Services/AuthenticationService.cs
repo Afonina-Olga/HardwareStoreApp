@@ -19,5 +19,22 @@ namespace HardwareStoreApp.Services
 			var user = await _userRepository.Get(login, password);
 			return user;
 		}
+
+		public async Task<RegistrationResult> Register(string login, string password, Role role)
+		{
+			var user = await _userRepository.Get(login);
+			
+			if (user != null)
+				return RegistrationResult.UserAlreadyExists;
+
+			await _userRepository.Create(new User()
+			{
+				Login = login,
+				Password = password,
+				Role = role
+			});
+
+			return RegistrationResult.Success;
+		}
 	}
 }

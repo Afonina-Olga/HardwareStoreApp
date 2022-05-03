@@ -2,5 +2,7 @@
 {
 	public enum RegistrationResult
 	{
+		Success,
+		UserAlreadyExists
 	}
 }
