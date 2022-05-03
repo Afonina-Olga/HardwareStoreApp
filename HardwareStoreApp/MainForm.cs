@@ -23,11 +23,12 @@ namespace HardwareStoreApp
 			InitializeComponent();
 		}
 
-		private void MainForm_Load(object sender, EventArgs e)
+		private async void MainForm_Load(object sender, EventArgs e)
 		{
 			_userStore.UserChanged += OnUserChanged;
 			adminMenuItem.Visible = false;
 			reportMenuItem.Visible = false;
+			await _authenticationService.Register("Admin", "123", Role.Admin);
 		}
 
 		private void OnUserChanged()
@@ -36,22 +37,20 @@ namespace HardwareStoreApp
 			reportMenuItem.Visible = true;// _userStore.Login != null;
 		}
 
-		private async void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			_userStore.UserChanged -= OnUserChanged;
-			await Program.HostInstance.StopAsync();
-			Application.Exit();
 		}
 
 		private void LoginMenuItem_Click(object sender, EventArgs e)
 		{
-			var form = Program.HostInstance.Services.GetRequiredService<LoginForm>();
+			var form = Program.Services.GetRequiredService<LoginForm>();
 			form.Show();
 		}
 
 		private void ManageUsersMenuItem_Click(object sender, EventArgs e)
 		{
-			var form = Program.HostInstance.Services.GetRequiredService<ManageUserAccounts>();
+			var form = Program.Services.GetRequiredService<ManageUserAccounts>();
 			form.Show();
 		}
 	}

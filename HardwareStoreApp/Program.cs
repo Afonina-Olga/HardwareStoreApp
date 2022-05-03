@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using HardwareStoreApp.Repositories;
 using HardwareStoreApp.Services;
 using HardwareStoreApp.Stores;
@@ -11,7 +12,9 @@ namespace HardwareStoreApp
 {
 	internal static class Program
 	{
-		public static IHost HostInstance { get; set; }
+		private static IHost _host;
+
+		public static IServiceProvider Services => _host.Services;
 
 		[STAThread]
 		static void Main()
@@ -19,14 +22,21 @@ namespace HardwareStoreApp
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+			Application.ApplicationExit += new EventHandler(OnApplicationExit);
 
-			HostInstance = CreateHostBuilder().Build();
-			HostInstance.Start();
+			_host = CreateHostBuilder().Build();
+			_host.Start();
 
-			var contextFactory = HostInstance.Services.GetRequiredService<HardwareStoreAppDbContextFactory>();
+			var contextFactory = _host.Services.GetRequiredService<HardwareStoreAppDbContextFactory>();
 			using var context = contextFactory.CreateDbContext();
 			context.Database.Migrate();
-			Application.Run(HostInstance.Services.GetRequiredService<MainForm>());
+
+			Application.Run(_host.Services.GetRequiredService<MainForm>());
+		}
+
+		private async static void OnApplicationExit(object sender, EventArgs e)
+		{
+			await _host.StopAsync();
 		}
 
 		public static IHostBuilder CreateHostBuilder(string[] args = null)
