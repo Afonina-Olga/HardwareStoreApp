@@ -1,5 +1,5 @@
-﻿using HardwareStoreApp.Models;
-using System;
+﻿using System;
+using HardwareStoreApp.Models;
 
 namespace HardwareStoreApp.Stores
 {

@@ -62,5 +62,10 @@ namespace HardwareStoreApp
 			var form = Program.Services.GetRequiredService<ManageUserAccounts>();
 			form.Show();
 		}
+
+		private void BtnClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 	}
 }
