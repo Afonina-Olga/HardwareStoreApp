@@ -68,7 +68,7 @@
 			this.loginMenuItem.Name = "loginMenuItem";
 			this.loginMenuItem.Size = new System.Drawing.Size(224, 26);
 			this.loginMenuItem.Text = "Вход";
-			this.loginMenuItem.Click += new System.EventHandler(this.loginMenuItem_Click);
+			this.loginMenuItem.Click += new System.EventHandler(this.LoginMenuItem_Click);
 			// 
 			// reportMenuItem
 			// 
@@ -97,6 +97,7 @@
 			this.manageUsersMenuItem.Name = "manageUsersMenuItem";
 			this.manageUsersMenuItem.Size = new System.Drawing.Size(297, 26);
 			this.manageUsersMenuItem.Text = "Управление пользователями";
+			this.manageUsersMenuItem.Click += new System.EventHandler(this.ManageUsersMenuItem_Click);
 			// 
 			// toolStripMenuItem2
 			// 

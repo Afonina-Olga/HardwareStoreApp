@@ -39,6 +39,7 @@ namespace HardwareStoreApp
 					services.AddSingleton(new HardwareStoreAppDbContextFactory());
 					services.AddTransient<MainForm>();
 					services.AddTransient<LoginForm>();
+					services.AddTransient<ManageUserAccounts>();
 					services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
 					services.AddSingleton<IUserRepository, UserRepository>();
 					services.AddSingleton<IAuthenticationService, AuthenticationService>();

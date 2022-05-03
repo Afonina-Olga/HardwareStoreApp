@@ -12,11 +12,16 @@ namespace HardwareStoreApp
 	{
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserStore _userStore;
+		private readonly LoginForm _loginForm;
 
-		public MainForm(IAuthenticationService authenticationService, IUserStore userStore)
+		public MainForm(
+			IAuthenticationService authenticationService,
+			IUserStore userStore,
+			LoginForm loginForm)
 		{
 			_authenticationService = authenticationService;
 			_userStore = userStore;
+			_loginForm = loginForm;
 			InitializeComponent();
 		}
 
@@ -40,10 +45,14 @@ namespace HardwareStoreApp
 			Application.Exit();
 		}
 
-		private void loginMenuItem_Click(object sender, EventArgs e)
+		private void LoginMenuItem_Click(object sender, EventArgs e)
 		{
-			var loginForm = new LoginForm(_authenticationService, _userStore);
-			loginForm.Show();
+			_loginForm.Show();
+		}
+
+		private void ManageUsersMenuItem_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
