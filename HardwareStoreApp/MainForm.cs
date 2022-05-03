@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using HardwareStoreApp.Models;
 using HardwareStoreApp.Services;
 using HardwareStoreApp.Stores;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareStoreApp
 {
@@ -12,19 +13,13 @@ namespace HardwareStoreApp
 	{
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserStore _userStore;
-		private readonly LoginForm _loginForm;
-		private readonly ManageUserAccounts _accounts;
 
 		public MainForm(
 			IAuthenticationService authenticationService,
-			IUserStore userStore,
-			LoginForm loginForm,
-			ManageUserAccounts accounts)
+			IUserStore userStore)
 		{
 			_authenticationService = authenticationService;
 			_userStore = userStore;
-			_loginForm = loginForm;
-			_accounts = accounts;
 			InitializeComponent();
 		}
 
@@ -50,12 +45,14 @@ namespace HardwareStoreApp
 
 		private void LoginMenuItem_Click(object sender, EventArgs e)
 		{
-			_loginForm.Show();
+			var form = Program.HostInstance.Services.GetRequiredService<LoginForm>();
+			form.Show();
 		}
 
 		private void ManageUsersMenuItem_Click(object sender, EventArgs e)
 		{
-			_accounts.Show();
+			var form = Program.HostInstance.Services.GetRequiredService<ManageUserAccounts>();
+			form.Show();
 		}
 	}
 }

@@ -14,6 +14,11 @@ namespace HardwareStoreApp.Services
 			_userRepository = userRepository;
 		}
 
+		public async Task<bool> Delete(int id)
+		{
+			return await _userRepository.Delete(id);
+		}
+
 		public async Task<User> Login(string login, string password)
 		{
 			var user = await _userRepository.Get(login, password);

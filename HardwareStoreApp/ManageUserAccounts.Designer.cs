@@ -28,7 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.components = new System.ComponentModel.Container();
+			this.userGrid = new System.Windows.Forms.DataGridView();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.txtPassword = new System.Windows.Forms.TextBox();
 			this.cbRole = new System.Windows.Forms.ComboBox();
@@ -37,18 +38,21 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			((System.ComponentModel.ISupportInitialize)(this.userGrid)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// dataGridView1
+			// userGrid
 			// 
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(13, 169);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.RowHeadersWidth = 51;
-			this.dataGridView1.RowTemplate.Height = 29;
-			this.dataGridView1.Size = new System.Drawing.Size(446, 208);
-			this.dataGridView1.TabIndex = 0;
+			this.userGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.userGrid.Location = new System.Drawing.Point(13, 169);
+			this.userGrid.Name = "userGrid";
+			this.userGrid.RowHeadersWidth = 51;
+			this.userGrid.RowTemplate.Height = 29;
+			this.userGrid.Size = new System.Drawing.Size(446, 208);
+			this.userGrid.TabIndex = 0;
+			this.userGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UserGrid_CellContentClick);
 			// 
 			// btnClose
 			// 
@@ -135,10 +139,14 @@
 			this.Controls.Add(this.cbRole);
 			this.Controls.Add(this.txtPassword);
 			this.Controls.Add(this.btnClose);
-			this.Controls.Add(this.dataGridView1);
+			this.Controls.Add(this.userGrid);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+			this.MaximizeBox = false;
 			this.Name = "ManageUserAccounts";
 			this.Text = "Управление пользователями";
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			this.Load += new System.EventHandler(this.ManageUserAccounts_Load);
+			((System.ComponentModel.ISupportInitialize)(this.userGrid)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -146,7 +154,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.DataGridView userGrid;
 		private System.Windows.Forms.Button btnClose;
 		private System.Windows.Forms.TextBox txtPassword;
 		private System.Windows.Forms.ComboBox cbRole;
@@ -155,5 +163,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.BindingSource userBindingSource;
 	}
 }
