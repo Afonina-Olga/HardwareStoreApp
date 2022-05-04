@@ -51,11 +51,13 @@
 			// txtPrice
 			// 
 			this.txtPrice.BackColor = System.Drawing.SystemColors.Window;
+			this.txtPrice.Enabled = false;
 			this.txtPrice.Location = new System.Drawing.Point(12, 193);
 			this.txtPrice.Name = "txtPrice";
 			this.txtPrice.ReadOnly = true;
 			this.txtPrice.Size = new System.Drawing.Size(402, 27);
 			this.txtPrice.TabIndex = 0;
+			this.txtPrice.TextChanged += new System.EventHandler(this.TxtPrice_TextChanged);
 			// 
 			// label1
 			// 
@@ -114,6 +116,7 @@
 			// txtBalance
 			// 
 			this.txtBalance.BackColor = System.Drawing.SystemColors.Window;
+			this.txtBalance.Enabled = false;
 			this.txtBalance.Location = new System.Drawing.Point(12, 140);
 			this.txtBalance.Name = "txtBalance";
 			this.txtBalance.ReadOnly = true;

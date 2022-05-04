@@ -3,14 +3,16 @@ using System;
 using HardwareStoreApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HardwareStoreApp.Migrations
 {
     [DbContext(typeof(HardwareStoreAppDbContext))]
-    partial class HardwareStoreAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220504100938_SaleRelations")]
+    partial class SaleRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

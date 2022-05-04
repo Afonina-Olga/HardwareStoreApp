@@ -60,31 +60,36 @@ namespace HardwareStoreApp
 
 			#region Relations
 
-			modelBuilder.Entity<Sale>()
-				.HasOne(_ => _.Product)
-				.WithMany(_ => _.Sales)
-				.HasForeignKey(_ => _.ProductId);
-
-			modelBuilder.Entity<Store>()
-				.HasOne(_ => _.Sale)
-				.WithOne(_ => _.Store)
-				.HasForeignKey<Sale>(_ => _.StoreId);
-
 			modelBuilder
 				.Entity<Store>()
 				.HasMany(_ => _.Products)
 				.WithMany(_ => _.Stores)
 				.UsingEntity<Balance>(
 					balance => balance
-						.HasOne(p => p.Product)
+						.HasOne(_ => _.Product)
 						.WithMany()
 						.HasForeignKey(_ => _.ProductId),
-					pi => pi
-						.HasOne(pi => pi.Store)
+					balance => balance
+						.HasOne(_ => _.Store)
 						.WithMany()
-						.HasForeignKey(pi => pi.StoreId))
+						.HasForeignKey(_ => _.StoreId))
 				.ToTable(nameof(Balance));
 
+			modelBuilder
+				.Entity<Store>()
+				.HasMany(_ => _.Products)
+				.WithMany(_ => _.Stores)
+				.UsingEntity<Sale>(
+					sale => sale
+						.HasOne(_ => _.Product)
+						.WithMany()
+						.HasForeignKey(_ => _.ProductId),
+					sale => sale
+						.HasOne(_ => _.Store)
+						.WithMany()
+						.HasForeignKey(_ => _.StoreId))
+				.ToTable(nameof(Sale));
+			
 			#endregion
 
 			base.OnModelCreating(modelBuilder);

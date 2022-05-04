@@ -26,7 +26,8 @@ namespace HardwareStoreApp
 
 		private async void BtnCreate_Click(object sender, EventArgs e)
 		{
-			var countValue = txtPrice.Text.Trim();
+			var countValue = txtSaleCount.Text.Trim();
+			var balance = int.Parse(txtBalance.Text.Trim());
 			var product = (Product)cbProduct.SelectedItem;
 			var store = (Store)cbStore.SelectedItem;
 
@@ -42,6 +43,14 @@ namespace HardwareStoreApp
 				return;
 			}
 
+			var count = int.Parse(countValue);
+			if (count > balance)
+			{
+				MessageBox.Show("Недостаточно товара");
+				txtSaleCount.Text = txtBalance.Text;
+				return;
+			}
+			
 			var result = await _balanceRepository.Get(product.Id, store.Id);
 		}
 
@@ -57,26 +66,33 @@ namespace HardwareStoreApp
 		{
 			var combo = sender as ComboBox;
 			if (combo.SelectedItem != null && cbStore.SelectedItem != null)
-				await SetBalance(((Product)combo.SelectedItem).Id, ((Store)cbStore.SelectedItem).Id);
+				await SetBalanceAndCount(((Product)combo.SelectedItem).Id, ((Store)cbStore.SelectedItem).Id);
 		}
 
 		private async void CbStore_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			var combo = sender as ComboBox;
 			if (combo.SelectedItem != null && cbProduct.SelectedItem != null)
-				await SetBalance(((Product)cbProduct.SelectedItem).Id, ((Store)combo.SelectedItem).Id);
+				await SetBalanceAndCount(((Product)cbProduct.SelectedItem).Id, ((Store)combo.SelectedItem).Id);
 		}
 
-		private async Task SetBalance(int productId, int storeId)
+		private async Task SetBalanceAndCount(int productId, int storeId)
 		{
 			var result = await _balanceRepository.Get(productId, storeId);
 			txtBalance.Text = result != null ? result.Count.ToString() : "0";
+			txtPrice.Text = result != null ? result.Price.ToString("0.##") : "0.00";
 		}
 
 		private void TxtBalance_TextChanged(object sender, EventArgs e)
 		{
 			var text = (sender as TextBox).Text;
-			btnCreate.Enabled = !(string.IsNullOrEmpty(text) || text == "0");
+			btnCreate.Enabled = !string.IsNullOrEmpty(text) && text != "0";
+		}
+
+		private void TxtPrice_TextChanged(object sender, EventArgs e)
+		{
+			var text = (sender as TextBox).Text;
+			btnCreate.Enabled = !string.IsNullOrEmpty(text) && text == "0.00";
 		}
 	}
 }
