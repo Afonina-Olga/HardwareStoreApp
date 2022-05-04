@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.txtSaleCount = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.cbStore = new System.Windows.Forms.ComboBox();
@@ -37,6 +38,10 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.txtBalance = new System.Windows.Forms.TextBox();
 			this.btnCreate = new System.Windows.Forms.Button();
+			this.bsProduct = new System.Windows.Forms.BindingSource(this.components);
+			this.bsStore = new System.Windows.Forms.BindingSource(this.components);
+			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsStore)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// txtSaleCount
@@ -62,6 +67,7 @@
 			this.cbStore.Name = "cbStore";
 			this.cbStore.Size = new System.Drawing.Size(402, 28);
 			this.cbStore.TabIndex = 2;
+			this.cbStore.SelectedIndexChanged += new System.EventHandler(this.CbStore_SelectedIndexChanged);
 			// 
 			// label2
 			// 
@@ -79,6 +85,7 @@
 			this.cbProduct.Name = "cbProduct";
 			this.cbProduct.Size = new System.Drawing.Size(402, 28);
 			this.cbProduct.TabIndex = 4;
+			this.cbProduct.SelectedIndexChanged += new System.EventHandler(this.CbProduct_SelectedIndexChanged);
 			// 
 			// label3
 			// 
@@ -100,8 +107,10 @@
 			// 
 			// txtBalance
 			// 
+			this.txtBalance.BackColor = System.Drawing.SystemColors.Window;
 			this.txtBalance.Location = new System.Drawing.Point(12, 140);
 			this.txtBalance.Name = "txtBalance";
+			this.txtBalance.ReadOnly = true;
 			this.txtBalance.Size = new System.Drawing.Size(402, 27);
 			this.txtBalance.TabIndex = 6;
 			// 
@@ -134,6 +143,9 @@
 			this.MinimizeBox = false;
 			this.Name = "SalesForm";
 			this.Text = "Отчет о продажах";
+			this.Load += new System.EventHandler(this.SalesForm_Load);
+			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsStore)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -150,5 +162,7 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox txtBalance;
 		private System.Windows.Forms.Button btnCreate;
+		private System.Windows.Forms.BindingSource bsProduct;
+		private System.Windows.Forms.BindingSource bsStore;
 	}
 }

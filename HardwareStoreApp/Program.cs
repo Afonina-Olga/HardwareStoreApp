@@ -52,6 +52,7 @@ namespace HardwareStoreApp
 					services.AddTransient<ManageUserAccountsForm>();
 					services.AddTransient<CreateProductsAndStoresForm>();
 					services.AddTransient<BalanceForm>();
+					services.AddTransient<SalesForm>();
 					services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
 					services.AddSingleton<IBalanceRepository, BalanceRepository>();
 					services.AddSingleton<IUserRepository, UserRepository>();

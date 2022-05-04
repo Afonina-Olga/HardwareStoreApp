@@ -6,5 +6,7 @@ namespace HardwareStoreApp.Repositories
 	public interface IBalanceRepository:IRepository<Balance>
 	{
 		Task<Balance> Get(int productId, int storeId, decimal price);
+
+		Task<Balance> Get(int productId, int storeId);
 	}
 }

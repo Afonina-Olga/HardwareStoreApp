@@ -33,7 +33,7 @@
 			this.authorizeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loginMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.сводныйПоМагазинамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.salesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.adminMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.manageUsersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addProductsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,13 +50,13 @@
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.checkBox3 = new System.Windows.Forms.CheckBox();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.label4 = new System.Windows.Forms.Label();
 			this.radioButton4 = new System.Windows.Forms.RadioButton();
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.bsProduct = new System.Windows.Forms.BindingSource(this.components);
-			this.label4 = new System.Windows.Forms.Label();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
 			this.menu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.productGrid)).BeginInit();
 			this.panel1.SuspendLayout();
@@ -97,16 +97,17 @@
 			// reportMenuItem
 			// 
 			this.reportMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сводныйПоМагазинамToolStripMenuItem});
+            this.salesMenuItem});
 			this.reportMenuItem.Name = "reportMenuItem";
 			this.reportMenuItem.Size = new System.Drawing.Size(73, 24);
 			this.reportMenuItem.Text = "Отчеты";
 			// 
-			// сводныйПоМагазинамToolStripMenuItem
+			// salesMenuItem
 			// 
-			this.сводныйПоМагазинамToolStripMenuItem.Name = "сводныйПоМагазинамToolStripMenuItem";
-			this.сводныйПоМагазинамToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-			this.сводныйПоМагазинамToolStripMenuItem.Text = "Продажи";
+			this.salesMenuItem.Name = "salesMenuItem";
+			this.salesMenuItem.Size = new System.Drawing.Size(224, 26);
+			this.salesMenuItem.Text = "Продажи";
+			this.salesMenuItem.Click += new System.EventHandler(this.SalesMenuItem_Click);
 			// 
 			// adminMenuItem
 			// 
@@ -255,6 +256,35 @@
 			this.panel1.Size = new System.Drawing.Size(794, 194);
 			this.panel1.TabIndex = 14;
 			// 
+			// checkBox3
+			// 
+			this.checkBox3.AutoSize = true;
+			this.checkBox3.Location = new System.Drawing.Point(217, 124);
+			this.checkBox3.Name = "checkBox3";
+			this.checkBox3.Size = new System.Drawing.Size(65, 24);
+			this.checkBox3.TabIndex = 18;
+			this.checkBox3.Text = "цена";
+			this.checkBox3.UseVisualStyleBackColor = true;
+			// 
+			// checkBox2
+			// 
+			this.checkBox2.AutoSize = true;
+			this.checkBox2.Location = new System.Drawing.Point(150, 124);
+			this.checkBox2.Name = "checkBox2";
+			this.checkBox2.Size = new System.Drawing.Size(61, 24);
+			this.checkBox2.TabIndex = 17;
+			this.checkBox2.Text = "дата";
+			this.checkBox2.UseVisualStyleBackColor = true;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(12, 126);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(121, 20);
+			this.label4.TabIndex = 16;
+			this.label4.Text = "Сортировать по";
+			// 
 			// radioButton4
 			// 
 			this.radioButton4.AutoSize = true;
@@ -294,35 +324,6 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 422);
 			this.tableLayoutPanel1.TabIndex = 15;
 			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(12, 126);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(121, 20);
-			this.label4.TabIndex = 16;
-			this.label4.Text = "Сортировать по";
-			// 
-			// checkBox2
-			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(150, 124);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(61, 24);
-			this.checkBox2.TabIndex = 17;
-			this.checkBox2.Text = "дата";
-			this.checkBox2.UseVisualStyleBackColor = true;
-			// 
-			// checkBox3
-			// 
-			this.checkBox3.AutoSize = true;
-			this.checkBox3.Location = new System.Drawing.Point(217, 124);
-			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(65, 24);
-			this.checkBox3.TabIndex = 18;
-			this.checkBox3.Text = "цена";
-			this.checkBox3.UseVisualStyleBackColor = true;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -351,7 +352,7 @@
 
 		private System.Windows.Forms.MenuStrip menu;
 		private System.Windows.Forms.ToolStripMenuItem reportMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem сводныйПоМагазинамToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem salesMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem adminMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem manageUsersMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem authorizeMenuItem;

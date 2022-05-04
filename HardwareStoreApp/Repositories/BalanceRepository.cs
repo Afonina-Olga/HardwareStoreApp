@@ -21,5 +21,13 @@ namespace HardwareStoreApp.Repositories
 				.FirstOrDefaultAsync(_ => _.ProductId == productId && _.StoreId == storeId && _.Price == price);
 			return user;
 		}
+
+		public async Task<Balance> Get(int productId, int storeId)
+		{
+			using var context = _contextFactory.CreateDbContext();
+			var user = await context.Balances
+				.FirstOrDefaultAsync(_ => _.ProductId == productId && _.StoreId == storeId);
+			return user;
+		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace HardwareStoreApp
 {
-	public partial class BalanceForm : Form
+	public partial class BalanceForm : BaseForm
 	{
 		private readonly IProductRepository _productRepository;
 		private readonly IStoreRepository _storeRepository;
@@ -60,8 +60,8 @@ namespace HardwareStoreApp
 					{
 						Count = count,
 						Price = price,
-						Product = product,
-						Store = store
+						ProductId = product.Id,
+						StoreId = store.Id
 					});
 				}
 
@@ -73,32 +73,12 @@ namespace HardwareStoreApp
 			}
 		}
 
-		private async void RefreshProducts()
-		{
-			var products = await _productRepository.Get();
-			bsProduct.DataSource = products;
-
-			bsProduct.ResetBindings(false);
-			cbProduct.DataSource = bsProduct;
-			cbProduct.ValueMember = "Name";
-			cbProduct.SelectedIndex = 0;
-		}
-
-		private async void RefreshStores()
+		private async void BalanceForm_Load(object sender, EventArgs e)
 		{
 			var stores = await _storeRepository.Get();
-			bsStore.DataSource = stores;
-
-			bsStore.ResetBindings(false);
-			cbStore.DataSource = bsStore;
-			cbStore.ValueMember = "Name";
-			cbStore.SelectedIndex = 0;
-		}
-
-		private void BalanceForm_Load(object sender, EventArgs e)
-		{
-			RefreshStores();
-			RefreshProducts();
+			var products = await _productRepository.Get();
+			RefreshComboboxDataSource(stores, "Name", bsStore, cbStore);
+			RefreshComboboxDataSource(products, "Name", bsProduct, cbProduct);
 		}
 	}
 }

@@ -97,5 +97,10 @@ namespace HardwareStoreApp
 		{
 			ShowDialog<BalanceForm>();
 		}
+
+		private void SalesMenuItem_Click(object sender, EventArgs e)
+		{
+			ShowDialog<SalesForm>();
+		}
 	}
 }
