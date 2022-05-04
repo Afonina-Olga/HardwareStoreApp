@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+
 using HardwareStoreApp.Models;
 using HardwareStoreApp.Repositories;
 using HardwareStoreApp.Services;
@@ -8,15 +9,15 @@ using HardwareStoreApp.ViewModels;
 
 namespace HardwareStoreApp
 {
-	public partial class ManageUserAccounts : Form
+	public partial class ManageUserAccountsForm : Form
 	{
 		private readonly IAuthenticationService _service;
 		private readonly IUserRepository _repository;
 
-		public ManageUserAccounts(IAuthenticationService service, IUserRepository userRepository)
+		public ManageUserAccountsForm(IAuthenticationService service, IUserRepository repository)
 		{
 			_service = service;
-			_repository = userRepository;
+			_repository = repository;
 
 			InitializeComponent();
 		}

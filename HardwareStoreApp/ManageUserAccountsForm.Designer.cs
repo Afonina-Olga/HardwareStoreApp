@@ -1,6 +1,6 @@
 ﻿namespace HardwareStoreApp
 {
-	partial class ManageUserAccounts
+	partial class ManageUserAccountsForm
 	{
 		/// <summary>
 		/// Required designer variable.

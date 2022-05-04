@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using HardwareStoreApp.Models;
 using HardwareStoreApp.Services;
 using HardwareStoreApp.Stores;
+using HardwareStoreApp.Repositories;
 
 namespace HardwareStoreApp
 {
@@ -14,13 +15,16 @@ namespace HardwareStoreApp
 	{
 		private readonly IAuthenticationService _authenticationService;
 		private readonly IUserStore _userStore;
+		private readonly IProductRepository _productRepository;
 
 		public MainForm(
 			IAuthenticationService authenticationService,
-			IUserStore userStore)
+			IUserStore userStore,
+			IProductRepository productRepository)
 		{
 			_authenticationService = authenticationService;
 			_userStore = userStore;
+			_productRepository = productRepository;
 			InitializeComponent();
 		}
 
@@ -30,6 +34,8 @@ namespace HardwareStoreApp
 			adminMenuItem.Visible = false;
 			reportMenuItem.Visible = false;
 			await _authenticationService.Register("Admin", "123", Role.Admin);
+
+			RefreshGrid();
 		}
 
 		private void OnUserChanged()
@@ -52,20 +58,44 @@ namespace HardwareStoreApp
 			}
 			else
 			{
-				var form = Program.Services.GetRequiredService<LoginForm>();
-				form.Show();
+				ShowDialog<LoginForm>();
 			}
 		}
 
 		private void ManageUsersMenuItem_Click(object sender, EventArgs e)
 		{
-			var form = Program.Services.GetRequiredService<ManageUserAccounts>();
-			form.Show();
+			ShowDialog<ManageUserAccountsForm>();
 		}
 
 		private void BtnClose_Click(object sender, EventArgs e)
 		{
 			Close();
+		}
+
+		private void FillDatabaseMenuItem_Click(object sender, EventArgs e)
+		{
+			ShowDialog<CreateProductsAndStoresForm>();
+		}
+
+		private void ShowDialog<T>()
+			where T : Form
+		{
+			var form = Program.Services.GetRequiredService<T>();
+			form.ShowDialog();
+		}
+
+		private async void RefreshGrid()
+		{
+			var products = await _productRepository.Get();
+			bsProduct.DataSource = products;
+
+			bsProduct.ResetBindings(false);
+			productGrid.DataSource = bsProduct;
+		}
+
+		private void AddProductsMenuItem_Click(object sender, EventArgs e)
+		{
+			ShowDialog<BalanceForm>();
 		}
 	}
 }

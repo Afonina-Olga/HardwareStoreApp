@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.menu = new System.Windows.Forms.MenuStrip();
 			this.authorizeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loginMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,6 +36,8 @@
 			this.сводныйПоМагазинамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.adminMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.manageUsersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addProductsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.fillDatabaseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.productGrid = new System.Windows.Forms.DataGridView();
@@ -47,13 +50,15 @@
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.radioButton4 = new System.Windows.Forms.RadioButton();
+			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.bsProduct = new System.Windows.Forms.BindingSource(this.components);
 			this.menu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.productGrid)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// menu
@@ -103,7 +108,9 @@
 			// adminMenuItem
 			// 
 			this.adminMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.manageUsersMenuItem});
+            this.manageUsersMenuItem,
+            this.addProductsMenuItem,
+            this.fillDatabaseMenuItem});
 			this.adminMenuItem.Name = "adminMenuItem";
 			this.adminMenuItem.Size = new System.Drawing.Size(170, 24);
 			this.adminMenuItem.Text = "Администрирование";
@@ -114,6 +121,20 @@
 			this.manageUsersMenuItem.Size = new System.Drawing.Size(297, 26);
 			this.manageUsersMenuItem.Text = "Управление пользователями";
 			this.manageUsersMenuItem.Click += new System.EventHandler(this.ManageUsersMenuItem_Click);
+			// 
+			// addProductsMenuItem
+			// 
+			this.addProductsMenuItem.Name = "addProductsMenuItem";
+			this.addProductsMenuItem.Size = new System.Drawing.Size(297, 26);
+			this.addProductsMenuItem.Text = "Приемка товаров";
+			this.addProductsMenuItem.Click += new System.EventHandler(this.AddProductsMenuItem_Click);
+			// 
+			// fillDatabaseMenuItem
+			// 
+			this.fillDatabaseMenuItem.Name = "fillDatabaseMenuItem";
+			this.fillDatabaseMenuItem.Size = new System.Drawing.Size(297, 26);
+			this.fillDatabaseMenuItem.Text = "Справочники";
+			this.fillDatabaseMenuItem.Click += new System.EventHandler(this.FillDatabaseMenuItem_Click);
 			// 
 			// toolStripMenuItem2
 			// 
@@ -228,6 +249,28 @@
 			this.panel1.Size = new System.Drawing.Size(794, 154);
 			this.panel1.TabIndex = 14;
 			// 
+			// radioButton4
+			// 
+			this.radioButton4.AutoSize = true;
+			this.radioButton4.Location = new System.Drawing.Point(495, 92);
+			this.radioButton4.Name = "radioButton4";
+			this.radioButton4.Size = new System.Drawing.Size(123, 24);
+			this.radioButton4.TabIndex = 15;
+			this.radioButton4.TabStop = true;
+			this.radioButton4.Text = "Начинается с";
+			this.radioButton4.UseVisualStyleBackColor = true;
+			// 
+			// radioButton1
+			// 
+			this.radioButton1.AutoSize = true;
+			this.radioButton1.Location = new System.Drawing.Point(321, 92);
+			this.radioButton1.Name = "radioButton1";
+			this.radioButton1.Size = new System.Drawing.Size(168, 24);
+			this.radioButton1.TabIndex = 14;
+			this.radioButton1.TabStop = true;
+			this.radioButton1.Text = "Точное совпадение";
+			this.radioButton1.UseVisualStyleBackColor = true;
+			// 
 			// tableLayoutPanel1
 			// 
 			this.tableLayoutPanel1.ColumnCount = 1;
@@ -244,28 +287,6 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 422);
 			this.tableLayoutPanel1.TabIndex = 15;
-			// 
-			// radioButton1
-			// 
-			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(321, 90);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(168, 24);
-			this.radioButton1.TabIndex = 14;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Точное совпадение";
-			this.radioButton1.UseVisualStyleBackColor = true;
-			// 
-			// radioButton4
-			// 
-			this.radioButton4.AutoSize = true;
-			this.radioButton4.Location = new System.Drawing.Point(495, 92);
-			this.radioButton4.Name = "radioButton4";
-			this.radioButton4.Size = new System.Drawing.Size(123, 24);
-			this.radioButton4.TabIndex = 15;
-			this.radioButton4.TabStop = true;
-			this.radioButton4.Text = "Начинается с";
-			this.radioButton4.UseVisualStyleBackColor = true;
 			// 
 			// MainForm
 			// 
@@ -285,6 +306,7 @@
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.tableLayoutPanel1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -309,12 +331,13 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.RadioButton radioButton2;
-		private System.Windows.Forms.RadioButton radioButton3;
 		private System.Windows.Forms.CheckBox checkBox1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.RadioButton radioButton4;
 		private System.Windows.Forms.RadioButton radioButton1;
+		private System.Windows.Forms.ToolStripMenuItem addProductsMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem fillDatabaseMenuItem;
+		private System.Windows.Forms.BindingSource bsProduct;
 	}
 }

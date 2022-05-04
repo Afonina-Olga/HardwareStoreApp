@@ -21,63 +21,64 @@ namespace HardwareStoreApp
 		{
 			#region Users table
 
-			modelBuilder.Entity<User>().Property(user => user.Role).IsRequired();
-			modelBuilder.Entity<User>().Property(user => user.Login).IsRequired();
-			modelBuilder.Entity<User>().Property(user => user.Password).IsRequired();
-			modelBuilder.Entity<User>().Property(user => user.Login).HasMaxLength(50);
-			modelBuilder.Entity<User>().Property(user => user.Password).HasMaxLength(20);
+			modelBuilder.Entity<User>().Property(_ => _.Role).IsRequired();
+			modelBuilder.Entity<User>().Property(_ => _.Login).IsRequired();
+			modelBuilder.Entity<User>().Property(_ => _.Password).IsRequired();
+			modelBuilder.Entity<User>().Property(_ => _.Login).HasMaxLength(50);
+			modelBuilder.Entity<User>().Property(_ => _.Password).HasMaxLength(20);
 
 			#endregion
 
 			#region Products table
 
-			modelBuilder.Entity<Product>().Property(product => product.Name).IsRequired();
-			modelBuilder.Entity<Product>().Property(product => product.Name).HasMaxLength(100);
-			modelBuilder.Entity<Product>().OwnsOne(product => product.Category);
+			modelBuilder.Entity<Product>().Property(_ => _.Name).IsRequired();
+			modelBuilder.Entity<Product>().Property(_ => _.Name).HasMaxLength(100);
+			modelBuilder.Entity<Product>().OwnsOne(_ => _.Category);
 
 			#endregion
 
 			#region Sales table
 
-			modelBuilder.Entity<Sale>().Property(sale => sale.Date).IsRequired();
-			modelBuilder.Entity<Sale>().Property(sale => sale.Price).IsRequired();
+			modelBuilder.Entity<Sale>().Property(_ => _.Date).IsRequired();
+			modelBuilder.Entity<Sale>().Property(_ => _.Price).IsRequired();
 
 			#endregion
 
 			#region Store table
 
-			modelBuilder.Entity<Store>().OwnsOne(store => store.Address);
+			modelBuilder.Entity<Store>().OwnsOne(_ => _.Address);
+			modelBuilder.Entity<Store>().Property(_ => _.Name);
 
 			#endregion
 
 			#region Balances table
 
-			modelBuilder.Entity<Balance>().Property(balance => balance.Price).IsRequired();
-			modelBuilder.Entity<Balance>().Property(balance => balance.Count).IsRequired();
+			modelBuilder.Entity<Balance>().Property(_ => _.Price).IsRequired();
+			modelBuilder.Entity<Balance>().Property(_ => _.Count).IsRequired();
 
 			#endregion
 
 			#region Relations
 
 			modelBuilder.Entity<Sale>()
-				.HasOne(sale => sale.Product)
-				.WithMany(product => product.Sales)
-				.HasForeignKey(sale => sale.ProductId);
+				.HasOne(_ => _.Product)
+				.WithMany(_ => _.Sales)
+				.HasForeignKey(_ => _.ProductId);
 
-			modelBuilder.Entity<Sale>()
-				.HasOne(sale => sale.Store)
-				.WithOne(store => store.Sale)
-				.HasForeignKey<Store>(store => store.SaleId);
-
-			modelBuilder.Entity<Balance>()
-				.HasOne(balance => balance.Product)
-				.WithMany(product => product.Balances)
-				.HasForeignKey(balance => balance.ProductId);
+			modelBuilder.Entity<Store>()
+				.HasOne(_ => _.Sale)
+				.WithOne(_ => _.Store)
+				.HasForeignKey<Sale>(_ => _.StoreId);
 
 			modelBuilder.Entity<Balance>()
-				.HasOne(balance => balance.Store)
-				.WithOne(product => product.Balance)
-				.HasForeignKey<Store>(sale => sale.BalanceId);
+				.HasOne(_ => _.Product)
+				.WithMany(_ => _.Balances)
+				.HasForeignKey(_ => _.ProductId);
+
+			modelBuilder.Entity<Store>()
+				.HasOne(_ => _.Balance)
+				.WithOne(_ => _.Store)
+				.HasForeignKey<Balance>(_ => _.StoreId);
 
 			#endregion
 			
