@@ -1,4 +1,6 @@
-﻿namespace HardwareStoreApp.Models
+﻿using System.Collections.Generic;
+
+namespace HardwareStoreApp.Models
 {
 	/// <summary>
 	///  Магазин
@@ -17,6 +19,6 @@
 
 		public Sale Sale { get; set; }
 
-		public Balance Balance { get; set; }
+		public List<Product> Products { get; set; }
 	}
 }

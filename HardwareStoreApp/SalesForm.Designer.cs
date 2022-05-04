@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.txtSaleCount = new System.Windows.Forms.TextBox();
+			this.txtPrice = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.cbStore = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
@@ -40,16 +40,22 @@
 			this.btnCreate = new System.Windows.Forms.Button();
 			this.bsProduct = new System.Windows.Forms.BindingSource(this.components);
 			this.bsStore = new System.Windows.Forms.BindingSource(this.components);
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtSaleCount = new System.Windows.Forms.TextBox();
+			this.dtSaleDate = new System.Windows.Forms.DateTimePicker();
+			this.label6 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsStore)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// txtSaleCount
+			// txtPrice
 			// 
-			this.txtSaleCount.Location = new System.Drawing.Point(12, 193);
-			this.txtSaleCount.Name = "txtSaleCount";
-			this.txtSaleCount.Size = new System.Drawing.Size(402, 27);
-			this.txtSaleCount.TabIndex = 0;
+			this.txtPrice.BackColor = System.Drawing.SystemColors.Window;
+			this.txtPrice.Location = new System.Drawing.Point(12, 193);
+			this.txtPrice.Name = "txtPrice";
+			this.txtPrice.ReadOnly = true;
+			this.txtPrice.Size = new System.Drawing.Size(402, 27);
+			this.txtPrice.TabIndex = 0;
 			// 
 			// label1
 			// 
@@ -92,9 +98,9 @@
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(12, 170);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(72, 20);
+			this.label3.Size = new System.Drawing.Size(45, 20);
 			this.label3.TabIndex = 5;
-			this.label3.Text = "Продано";
+			this.label3.Text = "Цена";
 			// 
 			// label4
 			// 
@@ -113,10 +119,11 @@
 			this.txtBalance.ReadOnly = true;
 			this.txtBalance.Size = new System.Drawing.Size(402, 27);
 			this.txtBalance.TabIndex = 6;
+			this.txtBalance.TextChanged += new System.EventHandler(this.TxtBalance_TextChanged);
 			// 
 			// btnCreate
 			// 
-			this.btnCreate.Location = new System.Drawing.Point(12, 241);
+			this.btnCreate.Location = new System.Drawing.Point(12, 338);
 			this.btnCreate.Name = "btnCreate";
 			this.btnCreate.Size = new System.Drawing.Size(402, 29);
 			this.btnCreate.TabIndex = 8;
@@ -124,11 +131,47 @@
 			this.btnCreate.UseVisualStyleBackColor = true;
 			this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
 			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(12, 276);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(96, 20);
+			this.label5.TabIndex = 10;
+			this.label5.Text = "Куплено, шт.";
+			// 
+			// txtSaleCount
+			// 
+			this.txtSaleCount.Location = new System.Drawing.Point(12, 299);
+			this.txtSaleCount.Name = "txtSaleCount";
+			this.txtSaleCount.Size = new System.Drawing.Size(402, 27);
+			this.txtSaleCount.TabIndex = 9;
+			// 
+			// dtSaleDate
+			// 
+			this.dtSaleDate.Location = new System.Drawing.Point(12, 246);
+			this.dtSaleDate.Name = "dtSaleDate";
+			this.dtSaleDate.Size = new System.Drawing.Size(401, 27);
+			this.dtSaleDate.TabIndex = 11;
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(12, 223);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(102, 20);
+			this.label6.TabIndex = 12;
+			this.label6.Text = "Дата покупки";
+			// 
 			// SalesForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(430, 295);
+			this.ClientSize = new System.Drawing.Size(425, 379);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.dtSaleDate);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.txtSaleCount);
 			this.Controls.Add(this.btnCreate);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.txtBalance);
@@ -137,12 +180,12 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.cbStore);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.txtSaleCount);
+			this.Controls.Add(this.txtPrice);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "SalesForm";
-			this.Text = "Отчет о продажах";
+			this.Text = "Продажа товара";
 			this.Load += new System.EventHandler(this.SalesForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsStore)).EndInit();
@@ -153,7 +196,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.TextBox txtSaleCount;
+		private System.Windows.Forms.TextBox txtPrice;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox cbStore;
 		private System.Windows.Forms.Label label2;
@@ -164,5 +207,9 @@
 		private System.Windows.Forms.Button btnCreate;
 		private System.Windows.Forms.BindingSource bsProduct;
 		private System.Windows.Forms.BindingSource bsStore;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.TextBox txtSaleCount;
+		private System.Windows.Forms.DateTimePicker dtSaleDate;
+		private System.Windows.Forms.Label label6;
 	}
 }

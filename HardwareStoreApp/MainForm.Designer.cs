@@ -33,7 +33,7 @@
 			this.authorizeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loginMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.salesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.salesReportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.adminMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.manageUsersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addProductsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +57,7 @@
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.bsProduct = new System.Windows.Forms.BindingSource(this.components);
+			this.salesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.productGrid)).BeginInit();
 			this.panel1.SuspendLayout();
@@ -97,23 +98,24 @@
 			// reportMenuItem
 			// 
 			this.reportMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.salesMenuItem});
+            this.salesReportMenuItem});
 			this.reportMenuItem.Name = "reportMenuItem";
 			this.reportMenuItem.Size = new System.Drawing.Size(73, 24);
 			this.reportMenuItem.Text = "Отчеты";
 			// 
-			// salesMenuItem
+			// salesReportMenuItem
 			// 
-			this.salesMenuItem.Name = "salesMenuItem";
-			this.salesMenuItem.Size = new System.Drawing.Size(224, 26);
-			this.salesMenuItem.Text = "Продажи";
-			this.salesMenuItem.Click += new System.EventHandler(this.SalesMenuItem_Click);
+			this.salesReportMenuItem.Name = "salesReportMenuItem";
+			this.salesReportMenuItem.Size = new System.Drawing.Size(157, 26);
+			this.salesReportMenuItem.Text = "Продажи";
+			this.salesReportMenuItem.Click += new System.EventHandler(this.SalesMenuItem_Click);
 			// 
 			// adminMenuItem
 			// 
 			this.adminMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manageUsersMenuItem,
             this.addProductsMenuItem,
+            this.salesMenuItem,
             this.fillDatabaseMenuItem});
 			this.adminMenuItem.Name = "adminMenuItem";
 			this.adminMenuItem.Size = new System.Drawing.Size(170, 24);
@@ -324,6 +326,13 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 422);
 			this.tableLayoutPanel1.TabIndex = 15;
 			// 
+			// salesMenuItem
+			// 
+			this.salesMenuItem.Name = "salesMenuItem";
+			this.salesMenuItem.Size = new System.Drawing.Size(297, 26);
+			this.salesMenuItem.Text = "Продажа товаров";
+			this.salesMenuItem.Click += new System.EventHandler(this.saleMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -352,7 +361,7 @@
 
 		private System.Windows.Forms.MenuStrip menu;
 		private System.Windows.Forms.ToolStripMenuItem reportMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem salesMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem salesReportMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem adminMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem manageUsersMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem authorizeMenuItem;
@@ -378,5 +387,6 @@
 		private System.Windows.Forms.CheckBox checkBox3;
 		private System.Windows.Forms.CheckBox checkBox2;
 		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.ToolStripMenuItem salesMenuItem;
 	}
 }

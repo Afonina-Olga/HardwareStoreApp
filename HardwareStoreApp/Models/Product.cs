@@ -19,6 +19,6 @@ namespace HardwareStoreApp.Models
 
 		public List<Sale> Sales { get; set; }
 
-		public List<Balance> Balances { get; set; }
+		public List<Store> Stores { get; set; }
 	}
 }

@@ -20,7 +20,6 @@ namespace HardwareStoreApp.Repositories
 			using var context = _contextFactory.CreateDbContext();
 
 			var sales = await context.Sales
-				.Include(_ => _.Balance)
 				.Include(_ => _.Product)
 				.Include(_ => _.Store)
 				.ToListAsync();

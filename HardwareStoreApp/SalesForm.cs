@@ -1,8 +1,9 @@
-﻿using HardwareStoreApp.Models;
-using HardwareStoreApp.Repositories;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using HardwareStoreApp.Models;
+using HardwareStoreApp.Repositories;
 
 namespace HardwareStoreApp
 {
@@ -25,7 +26,7 @@ namespace HardwareStoreApp
 
 		private async void BtnCreate_Click(object sender, EventArgs e)
 		{
-			var countValue = txtSaleCount.Text.Trim();
+			var countValue = txtPrice.Text.Trim();
 			var product = (Product)cbProduct.SelectedItem;
 			var store = (Store)cbStore.SelectedItem;
 
@@ -69,11 +70,13 @@ namespace HardwareStoreApp
 		private async Task SetBalance(int productId, int storeId)
 		{
 			var result = await _balanceRepository.Get(productId, storeId);
+			txtBalance.Text = result != null ? result.Count.ToString() : "0";
+		}
 
-			if (result != null)
-				txtBalance.Text = result.Count.ToString();
-			else
-				txtBalance.Text = "0";
+		private void TxtBalance_TextChanged(object sender, EventArgs e)
+		{
+			var text = (sender as TextBox).Text;
+			btnCreate.Enabled = !(string.IsNullOrEmpty(text) || text == "0");
 		}
 	}
 }

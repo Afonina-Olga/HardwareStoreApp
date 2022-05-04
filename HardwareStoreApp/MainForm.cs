@@ -100,6 +100,11 @@ namespace HardwareStoreApp
 
 		private void SalesMenuItem_Click(object sender, EventArgs e)
 		{
+			
+		}
+
+		private void saleMenuItem_Click(object sender, EventArgs e)
+		{
 			ShowDialog<SalesForm>();
 		}
 	}

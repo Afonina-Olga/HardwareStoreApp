@@ -70,18 +70,23 @@ namespace HardwareStoreApp
 				.WithOne(_ => _.Store)
 				.HasForeignKey<Sale>(_ => _.StoreId);
 
-			modelBuilder.Entity<Balance>()
-				.HasOne(_ => _.Product)
-				.WithMany(_ => _.Balances)
-				.HasForeignKey(_ => _.ProductId);
-
-			modelBuilder.Entity<Store>()
-				.HasOne(_ => _.Balance)
-				.WithOne(_ => _.Store)
-				.HasForeignKey<Balance>(_ => _.StoreId);
+			modelBuilder
+				.Entity<Store>()
+				.HasMany(_ => _.Products)
+				.WithMany(_ => _.Stores)
+				.UsingEntity<Balance>(
+					balance => balance
+						.HasOne(p => p.Product)
+						.WithMany()
+						.HasForeignKey(_ => _.ProductId),
+					pi => pi
+						.HasOne(pi => pi.Store)
+						.WithMany()
+						.HasForeignKey(pi => pi.StoreId))
+				.ToTable(nameof(Balance));
 
 			#endregion
-			
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using HardwareStoreApp.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace HardwareStoreApp
@@ -13,11 +14,14 @@ namespace HardwareStoreApp
 			ComboBox combobox)
 			where T : DomainObject
 		{
-			source.DataSource = items;
-			source.ResetBindings(false);
-			combobox.DataSource = source;
-			combobox.ValueMember = valueMember;
-			combobox.SelectedIndex = 0;
+			if (items.Any())
+			{
+				source.DataSource = items.Distinct();
+				source.ResetBindings(false);
+				combobox.DataSource = source;
+				combobox.ValueMember = valueMember;
+				combobox.SelectedIndex = 0;
+			}
 		}
 	}
 }

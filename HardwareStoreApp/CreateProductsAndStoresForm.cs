@@ -79,5 +79,10 @@ namespace HardwareStoreApp
 				MessageBox.Show("Что-то пошло не так...");
 			}
 		}
+
+		private void BtnClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 	}
 }

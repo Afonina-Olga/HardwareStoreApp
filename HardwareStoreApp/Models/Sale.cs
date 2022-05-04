@@ -30,9 +30,5 @@ namespace HardwareStoreApp.Models
 		public Store Store { get; set; }
 
 		public int StoreId { get; set; }
-		
-		public Balance Balance { get; set; }
-
-		public int BalanceId { get; set; }
 	}
 }

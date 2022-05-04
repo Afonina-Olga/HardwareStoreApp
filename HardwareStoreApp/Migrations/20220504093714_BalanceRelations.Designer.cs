@@ -3,14 +3,16 @@ using System;
 using HardwareStoreApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HardwareStoreApp.Migrations
 {
     [DbContext(typeof(HardwareStoreAppDbContext))]
-    partial class HardwareStoreAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220504093714_BalanceRelations")]
+    partial class BalanceRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -18,27 +20,24 @@ namespace HardwareStoreApp.Migrations
 
             modelBuilder.Entity("HardwareStoreApp.Models.Balance", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Count")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
+                    b.HasKey("StoreId", "ProductId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("StoreId");
 
                     b.ToTable("Balance");
                 });

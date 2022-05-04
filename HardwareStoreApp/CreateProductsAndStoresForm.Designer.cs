@@ -205,8 +205,9 @@
 			this.btnClose.TabIndex = 2;
 			this.btnClose.Text = "Закрыть";
 			this.btnClose.UseVisualStyleBackColor = true;
+			this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
 			// 
-			// CreateProducts
+			// CreateProductsAndStoresForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -217,7 +218,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "CreateProducts";
+			this.Name = "CreateProductsAndStoresForm";
 			this.Text = "Добавление товаров и магазинов";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
