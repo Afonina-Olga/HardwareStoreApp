@@ -1,7 +1,6 @@
 ﻿using HardwareStoreApp.Models;
 using HardwareStoreApp.Repositories;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace HardwareStoreApp
@@ -13,7 +12,7 @@ namespace HardwareStoreApp
 		private readonly IBalanceRepository _balanceRepository;
 
 		public BalanceForm(
-			IProductRepository productRepository, 
+			IProductRepository productRepository,
 			IStoreRepository storeRepository,
 			IBalanceRepository balanceRepository)
 		{
@@ -23,35 +22,52 @@ namespace HardwareStoreApp
 			InitializeComponent();
 		}
 
-		private void BtnAdd_Click(object sender, EventArgs e)
+		private async void BtnAdd_Click(object sender, EventArgs e)
 		{
-			var count = txtCount.Text.Trim();
-			var price = txtPrice.Text.Trim();
+			var countValue = txtCount.Text.Trim();
+			var priceValue = txtPrice.Text.Trim();
+			var product = (Product)cbProduct.SelectedItem;
+			var store = (Store)cbStore.SelectedItem;
 
-			if (string.IsNullOrEmpty(count) || string.IsNullOrEmpty(price))
+			if (string.IsNullOrEmpty(countValue) || string.IsNullOrEmpty(priceValue))
 			{
 				MessageBox.Show("Не все поля заполнены");
 				return;
 			}
 
-			if (!int.TryParse(count, out _) || !decimal.TryParse(price, out _))
+			if (!int.TryParse(countValue, out _) || !decimal.TryParse(priceValue, out _))
 			{
 				MessageBox.Show("Ввод некорректен");
 				return;
 			}
-			
+
+			var price = decimal.Parse(priceValue);
+			var count = int.Parse(countValue);
+
 			try
 			{
-				var result = _balanceRepository.Create(new Balance()
+				var balance = await _balanceRepository.Get(product.Id, store.Id, price);
+				if (balance != null)
 				{
-					Count = int.Parse(count),
-					Price = decimal.Parse(price),
-					Product = (Product)cbProduct.SelectedItem,
-					Store = (Store)cbStore.SelectedItem
-				});
+					// Update найденного
+					balance.Count += count;
+					await _balanceRepository.Update(balance.Id, balance);
+				}
+				else
+				{
+					// Создание нового 
+					await _balanceRepository.Create(new Balance()
+					{
+						Count = count,
+						Price = price,
+						Product = product,
+						Store = store
+					});
+				}
+
 				MessageBox.Show("Успешно");
 			}
-			catch 
+			catch
 			{
 				MessageBox.Show("Что-то пошло не так...");
 			}
