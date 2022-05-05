@@ -37,32 +37,39 @@
 			this.adminMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.manageUsersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addProductsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.salesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fillDatabaseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.productGrid = new System.Windows.Forms.DataGridView();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.cmbDistrict = new System.Windows.Forms.ComboBox();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.cbRegion = new System.Windows.Forms.ComboBox();
+			this.cbStore = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.txtName = new System.Windows.Forms.TextBox();
+			this.cbFullSearch = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.radioButton4 = new System.Windows.Forms.RadioButton();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.label5 = new System.Windows.Forms.Label();
+			this.cbCategory = new System.Windows.Forms.ComboBox();
+			this.btnApply = new System.Windows.Forms.Button();
+			this.btnClear = new System.Windows.Forms.Button();
+			this.cbExact = new System.Windows.Forms.CheckBox();
+			this.cbMinPrice = new System.Windows.Forms.CheckBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.bsProduct = new System.Windows.Forms.BindingSource(this.components);
-			this.salesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.bsCategory = new System.Windows.Forms.BindingSource(this.components);
+			this.bsRegions = new System.Windows.Forms.BindingSource(this.components);
+			this.bsStores = new System.Windows.Forms.BindingSource(this.components);
 			this.menu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.productGrid)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsCategory)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsRegions)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsStores)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// menu
@@ -135,6 +142,13 @@
 			this.addProductsMenuItem.Text = "Приемка товаров";
 			this.addProductsMenuItem.Click += new System.EventHandler(this.AddProductsMenuItem_Click);
 			// 
+			// salesMenuItem
+			// 
+			this.salesMenuItem.Name = "salesMenuItem";
+			this.salesMenuItem.Size = new System.Drawing.Size(297, 26);
+			this.salesMenuItem.Text = "Продажа товаров";
+			this.salesMenuItem.Click += new System.EventHandler(this.SalesMenuItem_Click);
+			// 
 			// fillDatabaseMenuItem
 			// 
 			this.fillDatabaseMenuItem.Name = "fillDatabaseMenuItem";
@@ -156,12 +170,12 @@
 			// 
 			this.productGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.productGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.productGrid.Location = new System.Drawing.Point(15, 200);
+			this.productGrid.Location = new System.Drawing.Point(15, 238);
 			this.productGrid.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
 			this.productGrid.Name = "productGrid";
 			this.productGrid.RowHeadersWidth = 51;
 			this.productGrid.RowTemplate.Height = 29;
-			this.productGrid.Size = new System.Drawing.Size(770, 172);
+			this.productGrid.Size = new System.Drawing.Size(770, 134);
 			this.productGrid.TabIndex = 1;
 			// 
 			// btnClose
@@ -185,21 +199,22 @@
 			this.label1.TabIndex = 4;
 			this.label1.Text = "Район";
 			// 
-			// cmbDistrict
+			// cbRegion
 			// 
-			this.cmbDistrict.FormattingEnabled = true;
-			this.cmbDistrict.Location = new System.Drawing.Point(13, 35);
-			this.cmbDistrict.Name = "cmbDistrict";
-			this.cmbDistrict.Size = new System.Drawing.Size(288, 28);
-			this.cmbDistrict.TabIndex = 5;
+			this.cbRegion.FormattingEnabled = true;
+			this.cbRegion.Location = new System.Drawing.Point(13, 35);
+			this.cbRegion.Name = "cbRegion";
+			this.cbRegion.Size = new System.Drawing.Size(288, 28);
+			this.cbRegion.TabIndex = 5;
+			this.cbRegion.SelectedIndexChanged += new System.EventHandler(this.CbRegion_SelectedIndexChanged);
 			// 
-			// comboBox1
+			// cbStore
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(321, 35);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(288, 28);
-			this.comboBox1.TabIndex = 7;
+			this.cbStore.FormattingEnabled = true;
+			this.cbStore.Location = new System.Drawing.Point(321, 35);
+			this.cbStore.Name = "cbStore";
+			this.cbStore.Size = new System.Drawing.Size(288, 28);
+			this.cbStore.TabIndex = 7;
 			// 
 			// label2
 			// 
@@ -221,93 +236,102 @@
 			this.label3.TabIndex = 8;
 			this.label3.Text = "Название товара";
 			// 
-			// textBox1
+			// txtName
 			// 
-			this.textBox1.Location = new System.Drawing.Point(13, 89);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(288, 27);
-			this.textBox1.TabIndex = 9;
+			this.txtName.Location = new System.Drawing.Point(13, 89);
+			this.txtName.Name = "txtName";
+			this.txtName.Size = new System.Drawing.Size(288, 27);
+			this.txtName.TabIndex = 9;
 			// 
-			// checkBox1
+			// cbFullSearch
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(13, 156);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(303, 24);
-			this.checkBox1.TabIndex = 13;
-			this.checkBox1.Text = "Продолжить поиск в других магазинах";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.cbFullSearch.AutoSize = true;
+			this.cbFullSearch.Location = new System.Drawing.Point(13, 194);
+			this.cbFullSearch.Name = "cbFullSearch";
+			this.cbFullSearch.Size = new System.Drawing.Size(303, 24);
+			this.cbFullSearch.TabIndex = 13;
+			this.cbFullSearch.Text = "Продолжить поиск в других магазинах";
+			this.cbFullSearch.UseVisualStyleBackColor = true;
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.checkBox3);
-			this.panel1.Controls.Add(this.checkBox2);
-			this.panel1.Controls.Add(this.label4);
-			this.panel1.Controls.Add(this.radioButton4);
-			this.panel1.Controls.Add(this.radioButton1);
+			this.panel1.Controls.Add(this.label5);
+			this.panel1.Controls.Add(this.cbCategory);
+			this.panel1.Controls.Add(this.btnApply);
+			this.panel1.Controls.Add(this.btnClear);
+			this.panel1.Controls.Add(this.cbExact);
+			this.panel1.Controls.Add(this.cbMinPrice);
 			this.panel1.Controls.Add(this.label1);
-			this.panel1.Controls.Add(this.checkBox1);
-			this.panel1.Controls.Add(this.cmbDistrict);
+			this.panel1.Controls.Add(this.cbFullSearch);
+			this.panel1.Controls.Add(this.cbRegion);
 			this.panel1.Controls.Add(this.label2);
-			this.panel1.Controls.Add(this.comboBox1);
-			this.panel1.Controls.Add(this.textBox1);
+			this.panel1.Controls.Add(this.cbStore);
+			this.panel1.Controls.Add(this.txtName);
 			this.panel1.Controls.Add(this.label3);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(3, 3);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(794, 194);
+			this.panel1.Size = new System.Drawing.Size(794, 232);
 			this.panel1.TabIndex = 14;
 			// 
-			// checkBox3
+			// label5
 			// 
-			this.checkBox3.AutoSize = true;
-			this.checkBox3.Location = new System.Drawing.Point(217, 124);
-			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(65, 24);
-			this.checkBox3.TabIndex = 18;
-			this.checkBox3.Text = "цена";
-			this.checkBox3.UseVisualStyleBackColor = true;
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(321, 66);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(81, 20);
+			this.label5.TabIndex = 23;
+			this.label5.Text = "Категория";
 			// 
-			// checkBox2
+			// cbCategory
 			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(150, 124);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(61, 24);
-			this.checkBox2.TabIndex = 17;
-			this.checkBox2.Text = "дата";
-			this.checkBox2.UseVisualStyleBackColor = true;
+			this.cbCategory.FormattingEnabled = true;
+			this.cbCategory.Location = new System.Drawing.Point(321, 89);
+			this.cbCategory.Name = "cbCategory";
+			this.cbCategory.Size = new System.Drawing.Size(288, 28);
+			this.cbCategory.TabIndex = 22;
 			// 
-			// label4
+			// btnApply
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(12, 126);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(121, 20);
-			this.label4.TabIndex = 16;
-			this.label4.Text = "Сортировать по";
+			this.btnApply.Location = new System.Drawing.Point(505, 189);
+			this.btnApply.Name = "btnApply";
+			this.btnApply.Size = new System.Drawing.Size(105, 29);
+			this.btnApply.TabIndex = 21;
+			this.btnApply.Text = "Применить";
+			this.btnApply.UseVisualStyleBackColor = true;
+			this.btnApply.Click += new System.EventHandler(this.BtnApply_Click);
 			// 
-			// radioButton4
+			// btnClear
 			// 
-			this.radioButton4.AutoSize = true;
-			this.radioButton4.Location = new System.Drawing.Point(495, 92);
-			this.radioButton4.Name = "radioButton4";
-			this.radioButton4.Size = new System.Drawing.Size(123, 24);
-			this.radioButton4.TabIndex = 15;
-			this.radioButton4.TabStop = true;
-			this.radioButton4.Text = "Начинается с";
-			this.radioButton4.UseVisualStyleBackColor = true;
+			this.btnClear.Location = new System.Drawing.Point(394, 189);
+			this.btnClear.Name = "btnClear";
+			this.btnClear.Size = new System.Drawing.Size(105, 29);
+			this.btnClear.TabIndex = 20;
+			this.btnClear.Text = "Очистить";
+			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
 			// 
-			// radioButton1
+			// cbExact
 			// 
-			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(321, 92);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(168, 24);
-			this.radioButton1.TabIndex = 14;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "Точное совпадение";
-			this.radioButton1.UseVisualStyleBackColor = true;
+			this.cbExact.AutoSize = true;
+			this.cbExact.Location = new System.Drawing.Point(12, 122);
+			this.cbExact.Name = "cbExact";
+			this.cbExact.Size = new System.Drawing.Size(169, 24);
+			this.cbExact.TabIndex = 19;
+			this.cbExact.Text = "Точное совпадение";
+			this.cbExact.UseVisualStyleBackColor = true;
+			// 
+			// cbMinPrice
+			// 
+			this.cbMinPrice.AutoSize = true;
+			this.cbMinPrice.Location = new System.Drawing.Point(13, 164);
+			this.cbMinPrice.Name = "cbMinPrice";
+			this.cbMinPrice.Size = new System.Drawing.Size(156, 24);
+			this.cbMinPrice.TabIndex = 18;
+			this.cbMinPrice.Text = "Сначала дешевые";
+			this.cbMinPrice.UseVisualStyleBackColor = true;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -320,18 +344,11 @@
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 3;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 238F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 422);
 			this.tableLayoutPanel1.TabIndex = 15;
-			// 
-			// salesMenuItem
-			// 
-			this.salesMenuItem.Name = "salesMenuItem";
-			this.salesMenuItem.Size = new System.Drawing.Size(297, 26);
-			this.salesMenuItem.Text = "Продажа товаров";
-			this.salesMenuItem.Click += new System.EventHandler(this.saleMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -352,6 +369,9 @@
 			this.panel1.PerformLayout();
 			this.tableLayoutPanel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.bsProduct)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsCategory)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsRegions)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsStores)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -371,22 +391,26 @@
 		private System.Windows.Forms.DataGridView productGrid;
 		private System.Windows.Forms.Button btnClose;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ComboBox cmbDistrict;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox cbRegion;
+		private System.Windows.Forms.ComboBox cbStore;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.TextBox txtName;
+		private System.Windows.Forms.CheckBox cbFullSearch;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.RadioButton radioButton4;
-		private System.Windows.Forms.RadioButton radioButton1;
 		private System.Windows.Forms.ToolStripMenuItem addProductsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem fillDatabaseMenuItem;
 		private System.Windows.Forms.BindingSource bsProduct;
-		private System.Windows.Forms.CheckBox checkBox3;
-		private System.Windows.Forms.CheckBox checkBox2;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.CheckBox cbMinPrice;
 		private System.Windows.Forms.ToolStripMenuItem salesMenuItem;
+		private System.Windows.Forms.CheckBox cbExact;
+		private System.Windows.Forms.Button btnApply;
+		private System.Windows.Forms.Button btnClear;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.ComboBox cbCategory;
+		private System.Windows.Forms.BindingSource bsCategory;
+		private System.Windows.Forms.BindingSource bsRegions;
+		private System.Windows.Forms.BindingSource bsStores;
 	}
 }

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace HardwareStoreApp
 {
-	public partial class BalanceForm : BaseForm
+	public partial class BalanceForm : Form
 	{
 		private readonly IProductRepository _productRepository;
 		private readonly IStoreRepository _storeRepository;
@@ -77,8 +77,8 @@ namespace HardwareStoreApp
 		{
 			var stores = await _storeRepository.Get();
 			var products = await _productRepository.Get();
-			RefreshComboboxDataSource(stores, "Name", bsStore, cbStore);
-			RefreshComboboxDataSource(products, "Name", bsProduct, cbProduct);
+			FormHelper.RefreshComboboxDataSource(stores, bsStore, cbStore, "Name", true);
+			FormHelper.RefreshComboboxDataSource(products, bsProduct, cbProduct, "Name", true);
 		}
 	}
 }

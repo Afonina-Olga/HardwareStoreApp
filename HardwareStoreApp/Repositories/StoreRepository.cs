@@ -1,6 +1,8 @@
 ﻿using HardwareStoreApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace HardwareStoreApp.Repositories
 {
@@ -12,6 +14,30 @@ namespace HardwareStoreApp.Repositories
 			: base(contextFactory)
 		{
 			_contextFactory = contextFactory;
+		}
+
+		public async Task<IEnumerable<Address>> GetLocations()
+		{
+			using var context = _contextFactory.CreateDbContext();
+			var entities = await context.Stores.ToListAsync();
+			return entities.Select(_ => _.Address);
+		}
+
+		public async Task<IEnumerable<Store>> GetStores()
+		{
+			using var context = _contextFactory.CreateDbContext();
+			var entities = await context.Stores.ToListAsync();
+			return entities;
+		}
+
+		public async Task<IEnumerable<Store>> GetStoresByRegion(string region)
+		{
+			using var context = _contextFactory.CreateDbContext();
+			var entities = await context.Stores
+				.AsNoTracking()
+				.Where(_ => _.Address.Region == region)
+				.ToListAsync();
+			return entities;
 		}
 
 		public async Task<bool> IsExists(string region, string name)

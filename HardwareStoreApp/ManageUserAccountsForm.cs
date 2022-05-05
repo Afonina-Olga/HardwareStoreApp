@@ -52,8 +52,8 @@ namespace HardwareStoreApp
 			RefreshGrid();
 			userGrid.AutoGenerateColumns = true;
 			userGrid.Columns[0].Visible = false;
-			SetColumnSettings(userGrid.Columns[1], "Логин");
-			SetColumnSettings(userGrid.Columns[2], "Роль");
+			FormHelper.SetColumnSettings(userGrid.Columns[1], "Логин");
+			FormHelper.SetColumnSettings(userGrid.Columns[2], "Роль");
 
 			userGrid.Columns.Add(new DataGridViewButtonColumn()
 			{
@@ -62,12 +62,6 @@ namespace HardwareStoreApp
 				ToolTipText = "Удалить",
 				UseColumnTextForButtonValue = true
 			});
-		}
-
-		private void SetColumnSettings(DataGridViewColumn column, string name)
-		{
-			column.HeaderText = name;
-			column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 		}
 
 		private async void UserGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)

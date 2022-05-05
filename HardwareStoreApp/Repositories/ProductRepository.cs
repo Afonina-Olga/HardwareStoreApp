@@ -1,5 +1,7 @@
 ﻿using HardwareStoreApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HardwareStoreApp.Repositories
@@ -12,6 +14,13 @@ namespace HardwareStoreApp.Repositories
 			: base(contextFactory)
 		{
 			_contextFactory = contextFactory;
+		}
+
+		public async Task<IEnumerable<Category>> GetAllCategories()
+		{
+			using var context = _contextFactory.CreateDbContext();
+			var entities = await context.Products.ToListAsync();
+			return entities.Select(_ => _.Category);
 		}
 
 		public async Task<bool> IsExists(string name, string category)

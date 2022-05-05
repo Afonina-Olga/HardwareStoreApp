@@ -58,7 +58,10 @@ namespace HardwareStoreApp
 					services.AddSingleton<IUserRepository, UserRepository>();
 					services.AddSingleton<IProductRepository, ProductRepository>();
 					services.AddSingleton<IStoreRepository, StoreRepository>();
+					services.AddSingleton<ISaleRepository, SaleRepository>();
 					services.AddSingleton<IAuthenticationService, AuthenticationService>();
+					services.AddSingleton<IAccountingService, AccountingService>();
+					services.AddSingleton<IProductService, ProductService>();
 					services.AddSingleton<IUserStore, UserStore>();
 				});
 		}

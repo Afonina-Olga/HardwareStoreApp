@@ -4,23 +4,27 @@ using System.Windows.Forms;
 
 using HardwareStoreApp.Models;
 using HardwareStoreApp.Repositories;
+using HardwareStoreApp.Services;
 
 namespace HardwareStoreApp
 {
-	public partial class SalesForm : BaseForm
+	public partial class SalesForm : Form
 	{
 		private readonly IProductRepository _productRepository;
 		private readonly IStoreRepository _storeRepository;
 		private readonly IBalanceRepository _balanceRepository;
+		private readonly IAccountingService _accountingService;
 
 		public SalesForm(
 			IProductRepository productRepository,
 			IStoreRepository storeRepository,
-			IBalanceRepository balanceRepository)
+			IBalanceRepository balanceRepository,
+			IAccountingService accountingService)
 		{
 			_productRepository = productRepository;
 			_storeRepository = storeRepository;
 			_balanceRepository = balanceRepository;
+			_accountingService = accountingService;
 			InitializeComponent();
 		}
 
@@ -28,8 +32,10 @@ namespace HardwareStoreApp
 		{
 			var countValue = txtSaleCount.Text.Trim();
 			var balance = int.Parse(txtBalance.Text.Trim());
+			var price = int.Parse(txtPrice.Text.Trim());
 			var product = (Product)cbProduct.SelectedItem;
 			var store = (Store)cbStore.SelectedItem;
+			var date = dtSaleDate.Value;
 
 			if (string.IsNullOrEmpty(countValue))
 			{
@@ -50,16 +56,21 @@ namespace HardwareStoreApp
 				txtSaleCount.Text = txtBalance.Text;
 				return;
 			}
-			
-			var result = await _balanceRepository.Get(product.Id, store.Id);
+
+			var result = await _accountingService.RegisterSale(product.Id, store.Id, date, price, count);
+
+			if (result)
+				MessageBox.Show("Продажа зарегистрирована");
+
+			await SetBalanceAndCount(product.Id, store.Id);
 		}
 
 		private async void SalesForm_Load(object sender, EventArgs e)
 		{
 			var stores = await _storeRepository.Get();
 			var products = await _productRepository.Get();
-			RefreshComboboxDataSource(stores, "Name", bsStore, cbStore);
-			RefreshComboboxDataSource(products, "Name", bsProduct, cbProduct);
+			FormHelper.RefreshComboboxDataSource(stores, bsStore, cbStore, "Name", true);
+			FormHelper.RefreshComboboxDataSource(products, bsProduct, cbProduct, "Name", true);
 		}
 
 		private async void CbProduct_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,14 +96,23 @@ namespace HardwareStoreApp
 
 		private void TxtBalance_TextChanged(object sender, EventArgs e)
 		{
-			var text = (sender as TextBox).Text;
-			btnCreate.Enabled = !string.IsNullOrEmpty(text) && text != "0";
+			SetEnable();
 		}
 
 		private void TxtPrice_TextChanged(object sender, EventArgs e)
 		{
-			var text = (sender as TextBox).Text;
-			btnCreate.Enabled = !string.IsNullOrEmpty(text) && text == "0.00";
+			SetEnable();
+		}
+
+		private void SetEnable()
+		{
+			var price = txtPrice.Text;
+			var count = txtBalance.Text;
+			btnCreate.Enabled =
+				!string.IsNullOrEmpty(price) &&
+				price != "0.00" &&
+				!string.IsNullOrEmpty(count) &&
+				count != "0";
 		}
 	}
 }

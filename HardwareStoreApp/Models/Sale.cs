@@ -18,6 +18,11 @@ namespace HardwareStoreApp.Models
 		public decimal Price { get; set; }
 
 		/// <summary>
+		/// Количество
+		/// </summary>
+		public int Count { get; set; }
+
+		/// <summary>
 		/// Товар
 		/// </summary>
 		public Product Product { get; set; }

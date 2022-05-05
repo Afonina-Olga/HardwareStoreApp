@@ -2,7 +2,7 @@
 
 namespace HardwareStoreApp.Repositories
 {
-	public interface ISalesRepository : IRepository<Sale>
+	public interface ISaleRepository : IRepository<Sale>
 	{
 
 	}

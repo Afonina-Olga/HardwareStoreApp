@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace HardwareStoreApp.Repositories
 {
-	public class SalesRepository : Repository<Sale>, ISalesRepository
+	public class SaleRepository : Repository<Sale>, ISaleRepository
 	{
 		private readonly HardwareStoreAppDbContextFactory _contextFactory;
 
-		public SalesRepository(HardwareStoreAppDbContextFactory contextFactory)
+		public SaleRepository(HardwareStoreAppDbContextFactory contextFactory)
 			: base(contextFactory)
 		{
 			_contextFactory = contextFactory;

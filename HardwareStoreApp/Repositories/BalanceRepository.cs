@@ -1,5 +1,7 @@
 ﻿using HardwareStoreApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HardwareStoreApp.Repositories
@@ -28,6 +30,18 @@ namespace HardwareStoreApp.Repositories
 			var user = await context.Balances
 				.FirstOrDefaultAsync(_ => _.ProductId == productId && _.StoreId == storeId);
 			return user;
+		}
+
+		public override async Task<IEnumerable<Balance>> Get()
+		{
+			using var context = _contextFactory.CreateDbContext();
+
+			var enities = await context.Balances
+				.Include(_ => _.Product)
+				.Include(_ => _.Store)
+				.ToListAsync();
+
+			return enities;
 		}
 	}
 }
