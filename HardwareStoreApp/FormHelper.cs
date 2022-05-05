@@ -26,6 +26,8 @@ namespace HardwareStoreApp
 				else
 					combobox.SelectedItem = null;
 			}
+			else
+				combobox.DataSource = null;
 		}
 
 		public static void SetColumnSettings(DataGridViewColumn column, string name)

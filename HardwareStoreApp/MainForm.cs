@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
-
+using System.Linq;
+using System.Collections.Generic;
+using HardwareStoreApp.ViewModels;
 using HardwareStoreApp.Models;
 using HardwareStoreApp.Services;
 using HardwareStoreApp.Stores;
-using HardwareStoreApp.Repositories;
-using System.Linq;
-using HardwareStoreApp.ViewModels;
-using System.Collections.Generic;
 
 namespace HardwareStoreApp
 {
@@ -104,10 +102,16 @@ namespace HardwareStoreApp
 			ShowDialog<CreateProductsAndStoresForm>();
 		}
 
+		private async void OnFormClosed(object sender, FormClosedEventArgs e)
+		{
+			RefreshGrid(await _productService.GetAll());
+		}
+
 		private void ShowDialog<T>()
 			where T : Form
 		{
 			var form = Program.Services.GetRequiredService<T>();
+			form.FormClosed += OnFormClosed;
 			form.ShowDialog();
 		}
 
@@ -195,6 +199,11 @@ namespace HardwareStoreApp
 			}
 			else
 				cbStore.Enabled = false;
+		}
+
+		private void SalesReportMenuItem_Click(object sender, EventArgs e)
+		{
+			ShowDialog<ReportForm>();
 		}
 	}
 }

@@ -24,15 +24,20 @@ namespace HardwareStoreApp.Repositories
 			return user;
 		}
 
-		public async Task<Balance> Get(int productId, int storeId)
+		public async Task<Balance> Get(int productId, int storeId, bool inStock = false)
 		{
 			using var context = _contextFactory.CreateDbContext();
-			var user = await context.Balances
-				.FirstOrDefaultAsync(_ => _.ProductId == productId && _.StoreId == storeId);
-			return user;
+			if (inStock)
+			{
+				return await context.Balances
+					.FirstOrDefaultAsync(_ => _.ProductId == productId && _.StoreId == storeId && _.Count > 0);
+			}
+
+			return await context.Balances
+					.FirstOrDefaultAsync(_ => _.ProductId == productId && _.StoreId == storeId);
 		}
 
-		public override async Task<IEnumerable<Balance>> Get()
+		public async Task<IEnumerable<Balance>> Get(bool inStock = false)
 		{
 			using var context = _contextFactory.CreateDbContext();
 
@@ -40,6 +45,9 @@ namespace HardwareStoreApp.Repositories
 				.Include(_ => _.Product)
 				.Include(_ => _.Store)
 				.ToListAsync();
+
+			if (inStock)
+				return enities.Where(_ => _.Count > 0);
 
 			return enities;
 		}

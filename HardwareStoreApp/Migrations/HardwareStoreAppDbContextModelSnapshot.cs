@@ -40,7 +40,7 @@ namespace HardwareStoreApp.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.ToTable("Balance");
+                    b.ToTable("Balances");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Product", b =>
@@ -77,27 +77,17 @@ namespace HardwareStoreApp.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProductId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("StoreId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("StoreId1")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ProductId1");
-
-                    b.HasIndex("StoreId");
-
-                    b.HasIndex("StoreId1")
+                    b.HasIndex("StoreId")
                         .IsUnique();
 
-                    b.ToTable("Sale");
+                    b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Store", b =>
@@ -136,6 +126,21 @@ namespace HardwareStoreApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProductStore", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoresId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductsId", "StoresId");
+
+                    b.HasIndex("StoresId");
+
+                    b.ToTable("ProductStore");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Balance", b =>
@@ -184,24 +189,16 @@ namespace HardwareStoreApp.Migrations
             modelBuilder.Entity("HardwareStoreApp.Models.Sale", b =>
                 {
                     b.HasOne("HardwareStoreApp.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Sales")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HardwareStoreApp.Models.Product", null)
-                        .WithMany("Sales")
-                        .HasForeignKey("ProductId1");
-
                     b.HasOne("HardwareStoreApp.Models.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
+                        .WithOne("Sale")
+                        .HasForeignKey("HardwareStoreApp.Models.Sale", "StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("HardwareStoreApp.Models.Store", null)
-                        .WithOne("Sale")
-                        .HasForeignKey("HardwareStoreApp.Models.Sale", "StoreId1");
 
                     b.Navigation("Product");
 
@@ -236,6 +233,21 @@ namespace HardwareStoreApp.Migrations
                         });
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("ProductStore", b =>
+                {
+                    b.HasOne("HardwareStoreApp.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HardwareStoreApp.Models.Store", null)
+                        .WithMany()
+                        .HasForeignKey("StoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Product", b =>

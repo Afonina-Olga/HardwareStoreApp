@@ -58,39 +58,39 @@ namespace HardwareStoreApp
 
 			#endregion
 
-			#region Relations
+			//#region Relations
 
-			modelBuilder
-				.Entity<Store>()
-				.HasMany(_ => _.Products)
-				.WithMany(_ => _.Stores)
-				.UsingEntity<Balance>(
-					balance => balance
-						.HasOne(_ => _.Product)
-						.WithMany()
-						.HasForeignKey(_ => _.ProductId),
-					balance => balance
-						.HasOne(_ => _.Store)
-						.WithMany()
-						.HasForeignKey(_ => _.StoreId))
-				.ToTable(nameof(Balance));
+			//modelBuilder
+			//	.Entity<Store>()
+			//	.HasMany(_ => _.Products)
+			//	.WithMany(_ => _.Stores)
+			//	.UsingEntity<Sale>(
+			//		sale => sale
+			//			.HasOne(_ => _.Product)
+			//			.WithMany()
+			//			.HasForeignKey(_ => _.ProductId),
+			//		sale => sale
+			//			.HasOne(_ => _.Store)
+			//			.WithMany()
+			//			.HasForeignKey(_ => _.StoreId))
+			//	.ToTable(nameof(Sale));
 
-			modelBuilder
-				.Entity<Store>()
-				.HasMany(_ => _.Products)
-				.WithMany(_ => _.Stores)
-				.UsingEntity<Sale>(
-					sale => sale
-						.HasOne(_ => _.Product)
-						.WithMany()
-						.HasForeignKey(_ => _.ProductId),
-					sale => sale
-						.HasOne(_ => _.Store)
-						.WithMany()
-						.HasForeignKey(_ => _.StoreId))
-				.ToTable(nameof(Sale));
+			//modelBuilder
+			//	.Entity<Store>()
+			//	.HasMany(_ => _.Products)
+			//	.WithMany(_ => _.Stores)
+			//	.UsingEntity<Balance>(
+			//		balance => balance
+			//			.HasOne(_ => _.Product)
+			//			.WithMany()
+			//			.HasForeignKey(_ => _.ProductId),
+			//		balance => balance
+			//			.HasOne(_ => _.Store)
+			//			.WithMany()
+			//			.HasForeignKey(_ => _.StoreId))
+			//	.ToTable(nameof(Balance));
 			
-			#endregion
+			//#endregion
 
 			base.OnModelCreating(modelBuilder);
 		}

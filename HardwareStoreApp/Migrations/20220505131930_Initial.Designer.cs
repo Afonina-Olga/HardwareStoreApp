@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HardwareStoreApp.Migrations
 {
     [DbContext(typeof(HardwareStoreAppDbContext))]
-    [Migration("20220504093714_BalanceRelations")]
-    partial class BalanceRelations
+    [Migration("20220505131930_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,26 +20,29 @@ namespace HardwareStoreApp.Migrations
 
             modelBuilder.Entity("HardwareStoreApp.Models.Balance", b =>
                 {
-                    b.Property<int>("StoreId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Count")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("StoreId", "ProductId");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Balance");
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Balances");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Product", b =>
@@ -62,6 +65,9 @@ namespace HardwareStoreApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Count")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
@@ -122,6 +128,21 @@ namespace HardwareStoreApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProductStore", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StoresId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductsId", "StoresId");
+
+                    b.HasIndex("StoresId");
+
+                    b.ToTable("ProductStore");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Balance", b =>
@@ -214,6 +235,21 @@ namespace HardwareStoreApp.Migrations
                         });
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("ProductStore", b =>
+                {
+                    b.HasOne("HardwareStoreApp.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HardwareStoreApp.Models.Store", null)
+                        .WithMany()
+                        .HasForeignKey("StoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Product", b =>

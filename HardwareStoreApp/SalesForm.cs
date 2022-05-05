@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -62,15 +63,13 @@ namespace HardwareStoreApp
 			if (result)
 				MessageBox.Show("Продажа зарегистрирована");
 
+			RefreshData();
 			await SetBalanceAndCount(product.Id, store.Id);
 		}
 
-		private async void SalesForm_Load(object sender, EventArgs e)
+		private void SalesForm_Load(object sender, EventArgs e)
 		{
-			var stores = await _storeRepository.Get();
-			var products = await _productRepository.Get();
-			FormHelper.RefreshComboboxDataSource(stores, bsStore, cbStore, "Name", true);
-			FormHelper.RefreshComboboxDataSource(products, bsProduct, cbProduct, "Name", true);
+			RefreshData();
 		}
 
 		private async void CbProduct_SelectedIndexChanged(object sender, EventArgs e)
@@ -78,6 +77,13 @@ namespace HardwareStoreApp
 			var combo = sender as ComboBox;
 			if (combo.SelectedItem != null && cbStore.SelectedItem != null)
 				await SetBalanceAndCount(((Product)combo.SelectedItem).Id, ((Store)cbStore.SelectedItem).Id);
+		}
+
+		private async void RefreshData()
+		{
+			var balances = await _balanceRepository.Get(true);
+			FormHelper.RefreshComboboxDataSource(balances.Select(_ => _.Store).Distinct(), bsStore, cbStore, "Name", true);
+			FormHelper.RefreshComboboxDataSource(balances.Select(_ => _.Product).Distinct(), bsProduct, cbProduct, "Name", true);
 		}
 
 		private async void CbStore_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,7 +95,7 @@ namespace HardwareStoreApp
 
 		private async Task SetBalanceAndCount(int productId, int storeId)
 		{
-			var result = await _balanceRepository.Get(productId, storeId);
+			var result = await _balanceRepository.Get(productId, storeId, true);
 			txtBalance.Text = result != null ? result.Count.ToString() : "0";
 			txtPrice.Text = result != null ? result.Price.ToString("0.##") : "0.00";
 		}

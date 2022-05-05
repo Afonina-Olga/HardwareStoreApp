@@ -113,9 +113,9 @@
 			// salesReportMenuItem
 			// 
 			this.salesReportMenuItem.Name = "salesReportMenuItem";
-			this.salesReportMenuItem.Size = new System.Drawing.Size(157, 26);
+			this.salesReportMenuItem.Size = new System.Drawing.Size(224, 26);
 			this.salesReportMenuItem.Text = "Продажи";
-			this.salesReportMenuItem.Click += new System.EventHandler(this.SalesMenuItem_Click);
+			this.salesReportMenuItem.Click += new System.EventHandler(this.SalesReportMenuItem_Click);
 			// 
 			// adminMenuItem
 			// 

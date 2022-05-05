@@ -18,7 +18,7 @@ namespace HardwareStoreApp
 		public HardwareStoreAppDbContext CreateDbContext(string[] args = null)
 		{
 			var options = new DbContextOptionsBuilder<HardwareStoreAppDbContext>();
-			options.UseSqlite(@"Data Source=D:/Shop/HardwareStoreAppDb.db");
+			options.UseSqlite(@"Data Source=HardwareStoreAppDb.db");
 			return new HardwareStoreAppDbContext(options.Options);
 		}
 	}

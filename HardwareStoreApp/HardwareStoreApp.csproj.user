@@ -16,6 +16,9 @@
     <Compile Update="ManageUserAccountsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="SalesForm.cs">
       <SubType>Form</SubType>
     </Compile>

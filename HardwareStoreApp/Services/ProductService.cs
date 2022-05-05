@@ -49,7 +49,7 @@ namespace HardwareStoreApp.Services
 			if (withCategory)
 				result = result.Where(_ => _.Product.Category.Name == category);
 
-			if (!result.Any())
+			if (!result.Any() && fullSearcMode)
 			{
 				var fullSearchResult = await _balanceRepository.Get();
 				return fullSearchResult.Where(_ => _.Product.Name == name);
