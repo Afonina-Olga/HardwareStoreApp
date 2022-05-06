@@ -25,8 +25,8 @@ namespace HardwareStoreApp.Services
 				{
 					Date = date,
 					Price = price,
-					ProductId = productId,
-					StoreId = storeId,
+					IdProduct = productId,
+					IdStore = storeId,
 					Count = count
 				});
 

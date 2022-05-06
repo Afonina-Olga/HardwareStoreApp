@@ -56,41 +56,35 @@ namespace HardwareStoreApp
 			modelBuilder.Entity<Balance>().Property(_ => _.Price).IsRequired();
 			modelBuilder.Entity<Balance>().Property(_ => _.Count).IsRequired();
 
+			modelBuilder.Entity<Product>()
+				.HasMany(c => c.Stores)
+				.WithMany(s => s.Products)
+				.UsingEntity<Sale>(
+					_ => _
+						.HasOne(_ => _.Store)
+						.WithMany()
+						.HasForeignKey(_ => _.IdStore),
+					_ => _
+						.HasOne(_ => _.Product)
+						.WithMany()
+						.HasForeignKey(_ => _.IdProduct))
+				.ToTable(nameof(Sale));
+
+			modelBuilder.Entity<Product>()
+				.HasMany(c => c.Stores)
+				.WithMany(s => s.Products)
+				.UsingEntity<Balance>(
+					pi => pi
+						.HasOne(_ => _.Store)
+						.WithMany()
+						.HasForeignKey(_ => _.StoreId),
+					pi => pi
+						.HasOne(_ => _.Product)
+						.WithMany()
+						.HasForeignKey(_ => _.ProductId))
+				.ToTable(nameof(Balance));
+
 			#endregion
-
-			//#region Relations
-
-			//modelBuilder
-			//	.Entity<Store>()
-			//	.HasMany(_ => _.Products)
-			//	.WithMany(_ => _.Stores)
-			//	.UsingEntity<Sale>(
-			//		sale => sale
-			//			.HasOne(_ => _.Product)
-			//			.WithMany()
-			//			.HasForeignKey(_ => _.ProductId),
-			//		sale => sale
-			//			.HasOne(_ => _.Store)
-			//			.WithMany()
-			//			.HasForeignKey(_ => _.StoreId))
-			//	.ToTable(nameof(Sale));
-
-			//modelBuilder
-			//	.Entity<Store>()
-			//	.HasMany(_ => _.Products)
-			//	.WithMany(_ => _.Stores)
-			//	.UsingEntity<Balance>(
-			//		balance => balance
-			//			.HasOne(_ => _.Product)
-			//			.WithMany()
-			//			.HasForeignKey(_ => _.ProductId),
-			//		balance => balance
-			//			.HasOne(_ => _.Store)
-			//			.WithMany()
-			//			.HasForeignKey(_ => _.StoreId))
-			//	.ToTable(nameof(Balance));
-			
-			//#endregion
 
 			base.OnModelCreating(modelBuilder);
 		}

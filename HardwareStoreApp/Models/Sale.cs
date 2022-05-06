@@ -27,13 +27,16 @@ namespace HardwareStoreApp.Models
 		/// </summary>
 		public Product Product { get; set; }
 
-		public int ProductId { get; set; }
+		/// <summary>
+		/// Внешний ключ в таблице Product
+		/// </summary>
+		public int IdProduct { get; set; }
 
 		/// <summary>
 		/// Магазин
 		/// </summary>
 		public Store Store { get; set; }
 
-		public int StoreId { get; set; }
+		public int IdStore { get; set; }
 	}
 }

@@ -23,5 +23,7 @@ namespace HardwareStoreApp.Services
 			string name,
 			string category,
 			bool fullSearcMode);
+
+		Task Test();
 	}
 }

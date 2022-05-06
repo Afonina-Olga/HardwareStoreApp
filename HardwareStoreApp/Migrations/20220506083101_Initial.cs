@@ -23,23 +23,6 @@ namespace HardwareStoreApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Address_Region = table.Column<string>(type: "TEXT", nullable: true),
-                    Address_Street = table.Column<string>(type: "TEXT", nullable: true),
-                    Address_House = table.Column<string>(type: "TEXT", nullable: true),
-                    Address_Id = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stores", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -55,7 +38,7 @@ namespace HardwareStoreApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Balances",
+                name: "Balance",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -67,47 +50,17 @@ namespace HardwareStoreApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Balances", x => x.Id);
+                    table.PrimaryKey("PK_Balance", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Balances_Products_ProductId",
+                        name: "FK_Balance_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Balances_Stores_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductStore",
-                columns: table => new
-                {
-                    ProductsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StoresId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductStore", x => new { x.ProductsId, x.StoresId });
-                    table.ForeignKey(
-                        name: "FK_ProductStore_Products_ProductsId",
-                        column: x => x.ProductsId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductStore_Stores_StoresId",
-                        column: x => x.StoresId,
-                        principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sales",
+                name: "Sale",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -115,63 +68,114 @@ namespace HardwareStoreApp.Migrations
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     Count = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StoreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    IdProduct = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdStore = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sales", x => x.Id);
+                    table.PrimaryKey("PK_Sale", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sales_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_Sale_Products_IdProduct",
+                        column: x => x.IdProduct,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sales_Stores_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Stores",
+                        name: "FK_Sale_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_Region = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_Street = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_House = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_Id = table.Column<int>(type: "INTEGER", nullable: true),
+                    SaleId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stores_Sale_SaleId",
+                        column: x => x.SaleId,
+                        principalTable: "Sale",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Balances_ProductId",
-                table: "Balances",
+                name: "IX_Balance_ProductId",
+                table: "Balance",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Balances_StoreId",
-                table: "Balances",
+                name: "IX_Balance_StoreId",
+                table: "Balance",
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductStore_StoresId",
-                table: "ProductStore",
-                column: "StoresId");
+                name: "IX_Sale_IdProduct",
+                table: "Sale",
+                column: "IdProduct");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_ProductId",
-                table: "Sales",
+                name: "IX_Sale_IdStore",
+                table: "Sale",
+                column: "IdStore");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sale_ProductId",
+                table: "Sale",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_StoreId",
-                table: "Sales",
+                name: "IX_Stores_SaleId",
+                table: "Stores",
+                column: "SaleId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Balance_Stores_StoreId",
+                table: "Balance",
                 column: "StoreId",
-                unique: true);
+                principalTable: "Stores",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Sale_Stores_IdStore",
+                table: "Sale",
+                column: "IdStore",
+                principalTable: "Stores",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Balances");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Sale_Products_IdProduct",
+                table: "Sale");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Sale_Products_ProductId",
+                table: "Sale");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Sale_Stores_IdStore",
+                table: "Sale");
 
             migrationBuilder.DropTable(
-                name: "ProductStore");
-
-            migrationBuilder.DropTable(
-                name: "Sales");
+                name: "Balance");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -181,6 +185,9 @@ namespace HardwareStoreApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Stores");
+
+            migrationBuilder.DropTable(
+                name: "Sale");
         }
     }
 }

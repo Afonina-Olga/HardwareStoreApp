@@ -40,7 +40,7 @@ namespace HardwareStoreApp.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.ToTable("Balances");
+                    b.ToTable("Balance");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Product", b =>
@@ -71,23 +71,27 @@ namespace HardwareStoreApp.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdStore")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StoreId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdProduct");
+
+                    b.HasIndex("IdStore");
+
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("StoreId")
-                        .IsUnique();
-
-                    b.ToTable("Sales");
+                    b.ToTable("Sale");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Store", b =>
@@ -99,7 +103,12 @@ namespace HardwareStoreApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("SaleId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SaleId");
 
                     b.ToTable("Stores");
                 });
@@ -126,21 +135,6 @@ namespace HardwareStoreApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ProductStore", b =>
-                {
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StoresId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ProductsId", "StoresId");
-
-                    b.HasIndex("StoresId");
-
-                    b.ToTable("ProductStore");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Balance", b =>
@@ -189,16 +183,20 @@ namespace HardwareStoreApp.Migrations
             modelBuilder.Entity("HardwareStoreApp.Models.Sale", b =>
                 {
                     b.HasOne("HardwareStoreApp.Models.Product", "Product")
-                        .WithMany("Sales")
-                        .HasForeignKey("ProductId")
+                        .WithMany()
+                        .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HardwareStoreApp.Models.Store", "Store")
-                        .WithOne("Sale")
-                        .HasForeignKey("HardwareStoreApp.Models.Sale", "StoreId")
+                        .WithMany()
+                        .HasForeignKey("IdStore")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("HardwareStoreApp.Models.Product", null)
+                        .WithMany("Sales")
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
 
@@ -207,6 +205,10 @@ namespace HardwareStoreApp.Migrations
 
             modelBuilder.Entity("HardwareStoreApp.Models.Store", b =>
                 {
+                    b.HasOne("HardwareStoreApp.Models.Sale", "Sale")
+                        .WithMany()
+                        .HasForeignKey("SaleId");
+
                     b.OwnsOne("HardwareStoreApp.Models.Address", "Address", b1 =>
                         {
                             b1.Property<int>("StoreId")
@@ -233,31 +235,13 @@ namespace HardwareStoreApp.Migrations
                         });
 
                     b.Navigation("Address");
-                });
 
-            modelBuilder.Entity("ProductStore", b =>
-                {
-                    b.HasOne("HardwareStoreApp.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HardwareStoreApp.Models.Store", null)
-                        .WithMany()
-                        .HasForeignKey("StoresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("HardwareStoreApp.Models.Product", b =>
                 {
                     b.Navigation("Sales");
-                });
-
-            modelBuilder.Entity("HardwareStoreApp.Models.Store", b =>
-                {
-                    b.Navigation("Sale");
                 });
 #pragma warning restore 612, 618
         }

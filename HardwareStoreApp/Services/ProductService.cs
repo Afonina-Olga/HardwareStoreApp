@@ -13,15 +13,17 @@ namespace HardwareStoreApp.Services
 		private readonly IBalanceRepository _balanceRepository;
 		private readonly IProductRepository _productRepository;
 		private readonly IStoreRepository _storeRepository;
+		private readonly ISaleRepository _salesRepository;
 
 		public ProductService(
 			IBalanceRepository balanceRepository,
 			IProductRepository productRepository,
-			IStoreRepository storeRepository)
+			IStoreRepository storeRepository, ISaleRepository salesRepository)
 		{
 			_balanceRepository = balanceRepository;
 			_productRepository = productRepository;
 			_storeRepository = storeRepository;
+			_salesRepository = salesRepository;
 		}
 
 		public async Task<IEnumerable<Balance>> Find(
@@ -86,6 +88,26 @@ namespace HardwareStoreApp.Services
 		{
 			var result = await _storeRepository.GetStoresByRegion(region);
 			return result;
+		}
+
+		public async Task Test()
+		{
+			await _balanceRepository.Create(new Balance()
+			{
+				Count = 1,
+				Price = 1,
+				ProductId =1,
+				StoreId =1
+			});
+
+			//await _salesRepository.Create(new Sale()
+			//{
+			//	Date = DateTime.Now,
+			//	Price = 1,
+			//	ProductId = 1,
+			//	StoreId = 1,
+			//	Count = 1
+			//});
 		}
 	}
 }
